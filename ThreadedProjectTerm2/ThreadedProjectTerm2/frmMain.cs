@@ -12,7 +12,22 @@ namespace ThreadedProjectTerm2
 {
     public partial class frmMain : Form
     {
-
+        /// <summary>
+        /// Main form that is the parent MDI form to manage the application:
+        ///             
+        ///     - stores application level variables to manage user credentials
+        ///       and child form tranisitions
+        ///     - provides code for menu buttons 
+        ///     - loads the home page (frmHome) 
+        ///     
+        /// Author: Stuart Peters (parent/child form management)
+        ///         Brent (user authenticaton - code is pending here)
+        /// </summary>
+        
+        //form level variables that are set when a child opens and 
+        //are used to track/test if a child form is open to 
+        //avoid opening duplicate versions of each form when menu buttons are clicked 
+        
         public frmHome activeFrmHome = null;
         public frmPackages activeFrmPackages = null;
         public frmProducts activeFrmProducts = null;
