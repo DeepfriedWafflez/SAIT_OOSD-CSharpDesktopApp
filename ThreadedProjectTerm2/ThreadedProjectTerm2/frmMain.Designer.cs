@@ -64,6 +64,7 @@
             this.btnAgents.Name = "btnAgents";
             this.btnAgents.Size = new System.Drawing.Size(77, 32);
             this.btnAgents.Text = "Agents";
+            this.btnAgents.Click += new System.EventHandler(this.btnAgents_Click);
             // 
             // btnSuppliers
             // 
@@ -73,6 +74,7 @@
             this.btnSuppliers.Name = "btnSuppliers";
             this.btnSuppliers.Size = new System.Drawing.Size(97, 32);
             this.btnSuppliers.Text = "Suppliers";
+            this.btnSuppliers.Click += new System.EventHandler(this.btnSuppliers_Click);
             // 
             // btnProducts
             // 
@@ -82,6 +84,7 @@
             this.btnProducts.Name = "btnProducts";
             this.btnProducts.Size = new System.Drawing.Size(93, 32);
             this.btnProducts.Text = "Products";
+            this.btnProducts.Click += new System.EventHandler(this.btnProducts_Click);
             // 
             // btnPackages
             // 
@@ -91,6 +94,7 @@
             this.btnPackages.Name = "btnPackages";
             this.btnPackages.Size = new System.Drawing.Size(95, 32);
             this.btnPackages.Text = "Packages";
+            this.btnPackages.Click += new System.EventHandler(this.btnPackages_Click);
             // 
             // btnHome
             // 
@@ -100,6 +104,7 @@
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(69, 32);
             this.btnHome.Text = "Home";
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // btnExit
             // 
@@ -109,6 +114,7 @@
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(47, 32);
             this.btnExit.Text = "Exit";
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // frmMain
             // 
@@ -116,8 +122,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 450);
             this.Controls.Add(this.toolStrip1);
+            this.IsMdiContainer = true;
             this.Name = "frmMain";
             this.Text = "Travel Experts - Agent Portal";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

@@ -10,18 +10,17 @@ using System.Windows.Forms;
 
 namespace ThreadedProjectTerm2
 {
-    public partial class frmProducts : Form
+    public partial class frmSuppliers : Form
     {
         public frmMain activeFrmMain;
-        public frmProducts()
+        public frmSuppliers()
         {
             InitializeComponent();
         }
 
-        private void frmProducts_FormClosed(object sender, FormClosedEventArgs e)
+        private void frmSuppliers_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-            if (this == activeFrmMain.activeFrmProducts)
+            if (this == activeFrmMain.activeFrmSuppliers)
                 activeFrmMain.activeFrmPackages = null;
         }
     }
