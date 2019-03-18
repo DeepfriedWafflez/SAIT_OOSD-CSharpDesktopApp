@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,12 @@ using TravelExpertsClasses;
 
 namespace DBClasses
 {
-    class ProductDB
+    /// <summary>
+    /// ProductDB class object for the TravelExperts database 
+    /// </summary>
+    /// Author: Stuart Peters
+    /// Date: March 2019
+    public class ProductDB
     {
         //get Products
         public static List<Product> GetProducts()
@@ -16,7 +22,7 @@ namespace DBClasses
             List<Product> products = new List<Product>();  //empty list
 
             //create connection
-            SqlConnection con = TravelExpertsDbConn.getDbConnection();
+            SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
             string strSqlSelect = "SELECT ProductID, ProdName FROM Products ORDER BY ProdName";
@@ -62,7 +68,7 @@ namespace DBClasses
             Product p = null;  //return null if no product exists for ID
 
 
-            SqlConnection con = TravelExpertsDbConn.getDbConnection();
+            SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
             string strSqlSelect = "SELECT ProductID, ProdName FROM Products " +
@@ -103,7 +109,7 @@ namespace DBClasses
             int productID = 0;
 
             //create connection
-            SqlConnection con = TravelExpertsDbConn.getDbConnection();
+            SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create SQL statement
             string strSqlInsert = "INSERT INTO Products(ProdName)" +
@@ -145,7 +151,7 @@ namespace DBClasses
 
             bool success = true;
 
-            SqlConnection con = TravelExpertsDbConn.getDbConnection();
+            SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "UPDATE Products " +
                                     "SET ProdName = @ProdNameNew, " +
@@ -184,7 +190,7 @@ namespace DBClasses
 
             bool success = true;
 
-            SqlConnection con = TravelExpertsDbConn.getDbConnection();
+            SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "DELETE FROM Products " +
                                   "WHERE ProductID = @ProductID " +  //customer id identifies record to update
