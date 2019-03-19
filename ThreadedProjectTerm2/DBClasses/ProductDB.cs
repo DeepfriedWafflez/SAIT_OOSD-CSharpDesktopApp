@@ -73,7 +73,7 @@ namespace DBClasses
             //create sql statement
             string strSqlSelect = "SELECT ProductID, ProdName FROM Products " +
                                   "WHERE ProductID = @ProductID";
-
+            Console.WriteLine(strSqlSelect);
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
 
@@ -82,11 +82,12 @@ namespace DBClasses
             try
             {
                 con.Open();
-
+                Console.WriteLine("open con");
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
-
+                Console.WriteLine("open dr");
                 if (dr.Read())
                 {
+                    p = new Product();
                     p.ProductID = Convert.ToInt32(dr["ProductID"]);
                     p.ProdName = dr["ProdName"].ToString();
                 }

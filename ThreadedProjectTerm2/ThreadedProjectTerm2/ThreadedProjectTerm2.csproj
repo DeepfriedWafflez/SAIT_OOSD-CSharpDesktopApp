@@ -113,6 +113,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Properties\DataSources\TravelExpertsClasses.Agent.datasource" />
+    <None Include="Properties\DataSources\TravelExpertsClasses.Product.datasource" />
+    <None Include="Properties\DataSources\TravelExpertsClasses.ProductSupplier.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.Supplier.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -33,3 +33,8 @@ C:\Users\819377\source\repos\ThreadedProject-Team1\ThreadedProjectTerm2\Threaded
 C:\Users\819377\source\repos\ThreadedProject-Team1\ThreadedProjectTerm2\ThreadedProjectTerm2\obj\Debug\ThreadedProjectTerm2.csproj.CopyComplete
 C:\Users\819377\source\repos\ThreadedProject-Team1\ThreadedProjectTerm2\ThreadedProjectTerm2\obj\Debug\ThreadedProjectTerm2.exe
 C:\Users\819377\source\repos\ThreadedProject-Team1\ThreadedProjectTerm2\ThreadedProjectTerm2\obj\Debug\ThreadedProjectTerm2.pdb
+C:\Users\475001\Source\Repos\ThreadedProject-Team1v2\ThreadedProjectTerm2\ThreadedProjectTerm2\bin\Debug\DBClasses.dll
+C:\Users\475001\Source\Repos\ThreadedProject-Team1v2\ThreadedProjectTerm2\ThreadedProjectTerm2\bin\Debug\TravelExpertsClasses.dll
+C:\Users\475001\Source\Repos\ThreadedProject-Team1v2\ThreadedProjectTerm2\ThreadedProjectTerm2\bin\Debug\DBClasses.pdb
+C:\Users\475001\Source\Repos\ThreadedProject-Team1v2\ThreadedProjectTerm2\ThreadedProjectTerm2\bin\Debug\TravelExpertsClasses.pdb
+C:\Users\475001\Source\Repos\ThreadedProject-Team1v2\ThreadedProjectTerm2\ThreadedProjectTerm2\obj\Debug\ThreadedProjectTerm2.csproj.CopyComplete

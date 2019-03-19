@@ -16,6 +16,11 @@ namespace DBClasses
     /// Date: March 2019
     public static class ProductSupplierDB
     {
+
+        //SortedList<string, Customer> customers = new SortedList<string, Customer>();// empty
+        //Customer cust;
+        //cust = new Customer(1, "Tom", "123 Main", "Calgary", "AB", "T2A 1Z4");
+        //customers.Add(cust.Name, cust); // you add key value pairs
         public static List<ProductSupplier> GetProductSuppliers()
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
