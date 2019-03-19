@@ -52,8 +52,9 @@ namespace DBClasses
 
 
         //adds a supplier
-        public static void AddSupplier(Supplier supp)
+        public static bool AddSupplier(Supplier supp)
         {
+            bool success = true;
             SqlConnection connect = TravelExpertsDBConn.getDbConnection();
             string insertQuery = "INSERT INTO Suppliers (SupplierID, SupName) VALUES(@SupplierID, @SupName)";
             SqlCommand cmd = new SqlCommand(insertQuery, connect);
@@ -65,9 +66,13 @@ namespace DBClasses
             try
             {
                 connect.Open();
+                int count = cmd.ExecuteNonQuery();
+                if (count == 0) success = false;
             }
             catch (Exception e) { throw e; }
             finally { connect.Close(); }
+
+            return success;
         }
 
 
