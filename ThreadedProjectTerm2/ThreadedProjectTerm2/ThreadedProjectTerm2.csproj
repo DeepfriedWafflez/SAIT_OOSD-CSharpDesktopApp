@@ -111,6 +111,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\TravelExpertsClasses.Agent.datasource" />
+    <None Include="Properties\DataSources\TravelExpertsClasses.Supplier.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -123,6 +125,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBClasses\DBClasses.csproj">
+      <Project>{0be13adf-ac19-41a8-87f4-9afb0303723b}</Project>
+      <Name>DBClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelExpertsClasses\TravelExpertsClasses.csproj">
+      <Project>{0dcdd615-1735-41a5-b967-3a1af1a32e84}</Project>
+      <Name>TravelExpertsClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
