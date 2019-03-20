@@ -14,6 +14,14 @@ namespace ThreadedProjectTerm2
 {
     public partial class frmSuppliers : Form
     {
+        /**
+        * Threaded project 2 - Team 1
+        * Purpose: Form for the supplier data to be built into
+        * Made by: Brent Ward
+        * Date: March 19th 2019
+        * **/
+
+        //holder variables
         List<Supplier> suppliers = null;
         Supplier supp;
 
@@ -23,10 +31,10 @@ namespace ThreadedProjectTerm2
             InitializeComponent();
         }
 
+        //builds datagrid on load
         private void frmSuppliers_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-
             suppliers = SuppliersDB.GetSuppliers();
             supplierDataGridView.DataSource = suppliers;
         }
@@ -41,22 +49,26 @@ namespace ThreadedProjectTerm2
         //adds the input to the table
         private void AddButton_Click(object sender, EventArgs e)
         {
-            supp = new Supplier();
-            this.buildSupplier(supp);
-            try
+            if(isValid())
             {
-                if (SuppliersDB.AddSupplier(supp))
+                supp = new Supplier();
+                this.buildSupplier(supp);
+                try
                 {
-                    MessageBox.Show("Supplier added successfully.", "Success");
-                    clearContent();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to add the suplier. Please try again.", "Database Error");
-                    clearContent();
-                }
+                    if (SuppliersDB.AddSupplier(supp))
+                    {
+                        MessageBox.Show("Supplier added successfully.", "Success");
+                        clearContent();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add the suplier. Please try again.", "Database Error");
+                        clearContent();
+                    }
 
-            }catch(Exception ex) { MessageBox.Show(ex.Message, ex.GetType().ToString()); }
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, ex.GetType().ToString()); }
+            }        
         }
 
         //deletes the selected cell
@@ -71,12 +83,12 @@ namespace ThreadedProjectTerm2
                 {
                     try
                     {
-                        if (!SuppliersDB.DeleteSupplier(supp))
+                        if (!SuppliersDB.DeleteSupplier(supp))//failed
                         {
                             MessageBox.Show("Another user has updated or deleted that supplier.", "Database Error");
                             clearContent();
                         }
-                        else
+                        else//success
                         {
                             MessageBox.Show("Delete Successful.");
                             clearContent();
@@ -108,10 +120,13 @@ namespace ThreadedProjectTerm2
             
         }
 
-        //checks the fields arent empty
+        //checks the fields are valid
         private bool isValid()
         {
-            return Validator.IsPresent(supIDTextBox) && Validator.IsPresent(supNameTextBox);
+            return Validator.IsPresent(supIDTextBox) && 
+                   Validator.isWholeNumber(supIDTextBox, "ID") &&
+                   Validator.isNonNegative(supIDTextBox, "ID") &&
+                   Validator.IsPresent(supNameTextBox);
         }
 
         //builds the current supplier
@@ -121,6 +136,7 @@ namespace ThreadedProjectTerm2
             supp.SupName = supNameTextBox.Text;
         }
 
+        //resets the form (useful to update the datagrid for changes/new submissions)
         private void clearContent()
         {
             supIDTextBox.Clear();
