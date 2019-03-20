@@ -24,6 +24,7 @@ namespace ThreadedProjectTerm2
         //holder variables
         List<Agent> agents = null;
         Agent agt;
+        Agent tempAgent = new Agent(); //holder for updating
 
         public frmMain activeFrmMain;
         public frmAgents()
@@ -73,7 +74,18 @@ namespace ThreadedProjectTerm2
         //updates information for agents
         private void UpdateButton_Click(object sender, EventArgs e)
         {
+            if (isValid())//checks there is an object first
+            {
+                agt = new Agent();
+                BuildAgent(agt);//builds the new agent,now we use TempAgent to check the changes
 
+                if (AgentDB.UpdateAgent(tempAgent, agt))
+                {
+                    MessageBox.Show("Agent successfully updated.", "Success");
+                    ClearContent();
+                }
+                else {MessageBox.Show("There was an error updating, please try again."); ClearContent(); }
+            }
         }
 
         //deletes an agent
@@ -81,6 +93,8 @@ namespace ThreadedProjectTerm2
         {
             if (isValid())//checks there is a value selected
             {
+                agt = new Agent();
+                BuildAgent(agt);
                 //confirmation window
                 DialogResult result = MessageBox.Show("Delete " + agt.AgtLastName + ", "+ agt.AgtFirstName + "?",
                 "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -115,14 +129,27 @@ namespace ThreadedProjectTerm2
         //loads the datagrid row into the datafields
         private void agentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            agentIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-            agtFirstNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-            agtLastNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-            agtMiddleInitialTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-            agtBusPhoneTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-            agtEmailTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-            agtPositionTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
-            agencyIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+            bool built = false;
+
+            do
+            {
+                agentIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                agtFirstNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                agtLastNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                agtMiddleInitialTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                agtBusPhoneTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                agtEmailTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+                agtPositionTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
+                agencyIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+
+                built = true;//stops the do after 1 loop
+            } while (!built);
+
+            if (built)
+            {
+                BuildAgent(tempAgent);
+            }
+            
         }
 
         //checks the datafields are valid
