@@ -43,11 +43,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataSource = typeof(TravelExpertsClasses.Product);
-            // 
+  
             // lstSuppliers
             // 
             this.lstSuppliers.DataSource = this.productSupplierBindingSource;
