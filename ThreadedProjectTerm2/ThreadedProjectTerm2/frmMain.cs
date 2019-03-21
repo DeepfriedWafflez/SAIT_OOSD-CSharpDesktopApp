@@ -36,6 +36,7 @@ namespace ThreadedProjectTerm2
         public frmMain()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void btnHome_Click(object sender, EventArgs e)

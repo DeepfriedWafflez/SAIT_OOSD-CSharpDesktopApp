@@ -98,7 +98,59 @@ namespace DBClasses
 
 
         //updates an agent
+        public static bool UpdateAgent(Agent oldAgent, Agent newAgent)
+        {
+            bool success = true;
 
+            SqlConnection connect = TravelExpertsDBConn.getDbConnection();
+            //only needs ID, rest checks for concurrency issues
+            string updateQuery = "UPDATE Agents SET AgtFirstName = @NewAgtFirstName, " +
+                                                "AgtMiddleInitial = @NewAgtMiddleInitial, " +
+                                                "AgtLastName = @NewAgtLastName, " +
+                                                "AgtBusPhone = @NewAgtBusPhone, " +
+                                                "AgtEmail = @NewAgtEmail, " +
+                                                "AgtPosition = @newAgtPosition, " +
+                                                "AgencyId = @NewAgencyId " +
+                                 "WHERE AgentId = @OldAgentId " +
+                                       "AND AgtFirstName = @OldAgtFirstName " +
+                                       "AND AgtMiddleInitial = @OldAgtMiddleInitial " +
+                                       "AND AgtLastName = @OldAgtLastName " +
+                                       "AND AgtBusPhone = @OldAgtBusPhone " +
+                                       "AND AgtEmail = @OldAgtEmail " +
+                                       "AND AgtPosition = @OldAgtPosition "+
+                                       "AND AgencyId = @OldAgencyId";
+            SqlCommand cmd = new SqlCommand(updateQuery, connect);
+
+            //sets the parameters
+            cmd.Parameters.AddWithValue("@NewAgtFirstName", newAgent.AgtFirstName);
+            cmd.Parameters.AddWithValue("@NewAgtMiddleInitial", newAgent.AgtMiddleInitial);
+            cmd.Parameters.AddWithValue("@NewAgtLastName", newAgent.AgtLastName);
+            cmd.Parameters.AddWithValue("@NewAgtBusPhone", newAgent.AgtBusPhone);
+            cmd.Parameters.AddWithValue("@NewAgtEmail", newAgent.AgtEmail);
+            cmd.Parameters.AddWithValue("@NewAgtPosition", newAgent.AgtPosition);
+            cmd.Parameters.AddWithValue("@NewAgencyId", newAgent.AgencyID);
+
+            cmd.Parameters.AddWithValue("@OldAgentId", oldAgent.AgentID);
+            cmd.Parameters.AddWithValue("@OldAgtFirstName", oldAgent.AgtFirstName);
+            cmd.Parameters.AddWithValue("@OldAgtMiddleInitial", oldAgent.AgtMiddleInitial);
+            cmd.Parameters.AddWithValue("@OldAgtLastName", oldAgent.AgtLastName);
+            cmd.Parameters.AddWithValue("@OldAgtBusPhone", oldAgent.AgtBusPhone);
+            cmd.Parameters.AddWithValue("@OldAgtEmail", oldAgent.AgtEmail);
+            cmd.Parameters.AddWithValue("@OldAgtPosition", oldAgent.AgtPosition);
+            cmd.Parameters.AddWithValue("@OldAgencyId", oldAgent.AgencyID);
+
+            try
+            {
+                connect.Open();
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                if (rowsUpdated == 0) success = false;//did not update, concurrency issue
+
+            }
+            catch (Exception e) { throw e; }
+            finally { connect.Close(); }
+
+            return success;
+        }
 
         //deletes an agent
         public static bool DeleteAgent(Agent agt)
