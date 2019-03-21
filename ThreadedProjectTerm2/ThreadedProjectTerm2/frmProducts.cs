@@ -39,16 +39,21 @@ namespace ThreadedProjectTerm2
 
             //set form to first item in product list
             //supplierList = SuppliersDB.GetSuppliers();
-            currentProduct = ProductDB.getProductById(1);
-            //productSupplierList = ProductSupplierDB.GetProductSuppliersByProductID(1);
 
-            //lstSuppliers.DataSource = productSupplierList;
+            LoadProduct();
 
+        }
+
+        private void LoadProduct()
+        {
+            currentProduct = ProductDB.getProductById(Convert.ToInt32(lstProducts.SelectedValue));
+            productSupplierList = ProductSupplierDB.GetProductSuppliersByProductID(currentProduct.ProductId);
+            lstSuppliers.DataSource = productSupplierList;
         }
 
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            LoadProduct();
         }
 
 

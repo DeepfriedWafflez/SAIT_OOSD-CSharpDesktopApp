@@ -14,7 +14,7 @@ namespace TravelExpertsClasses
     public class Product
     {
         //properties
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
         public string ProdName { get; set; }
 
@@ -23,14 +23,14 @@ namespace TravelExpertsClasses
 
         public Product(int i, string n)
         {
-            ProductID = i;
+            ProductId = i;
             ProdName = n;
         }
 
         //methods
         public override string ToString()
         {
-            return "Product ID: " + ProductID + " Name: " + ProdName;
+            return "Product ID: " + ProductId + " Name: " + ProdName;
         }
 
     }
