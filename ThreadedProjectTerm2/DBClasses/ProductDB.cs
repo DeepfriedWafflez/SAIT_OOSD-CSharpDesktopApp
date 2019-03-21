@@ -25,7 +25,7 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductID, ProdName FROM Products ORDER BY ProdName";
+            string strSqlSelect = "SELECT ProductId, ProdName FROM Products ORDER BY ProdName";
 
 
 
@@ -43,7 +43,7 @@ namespace DBClasses
                 {
                     Product p = new Product();
 
-                    p.ProductID = Convert.ToInt32(dr["ProductID"]);
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
                     p.ProdName = dr["ProdName"].ToString();
 
                     products.Add(p);
@@ -63,7 +63,7 @@ namespace DBClasses
 
 
         //get Product by ID
-        public static Product getProductById(int productID)
+        public static Product getProductById(int productId)
         {
             Product p = null;  //return null if no product exists for ID
 
@@ -71,24 +71,21 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductID, ProdName FROM Products " +
-                                  "WHERE ProductID = @ProductID";
-            Console.WriteLine(strSqlSelect);
+            string strSqlSelect = "SELECT ProductId, ProdName FROM Products " +
+                                  "WHERE ProductId = @ProductId";
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
 
-            cmd.Parameters.AddWithValue("@ProductID", productID);
+            cmd.Parameters.AddWithValue("@ProductId", productId);
 
             try
             {
                 con.Open();
-                Console.WriteLine("open con");
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
-                Console.WriteLine("open dr");
                 if (dr.Read())
                 {
                     p = new Product();
-                    p.ProductID = Convert.ToInt32(dr["ProductID"]);
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
                     p.ProdName = dr["ProdName"].ToString();
                 }
             }
@@ -156,7 +153,7 @@ namespace DBClasses
 
             string strSqlUpdate = "UPDATE Products " +
                                     "SET ProdName = @ProdNameNew, " +
-                                    "WHERE ProductID = @ProductIDOld " +  //customer id identifies record to update
+                                    "WHERE ProductId = @ProductIdOld " +  //customer id identifies record to update
                                         "AND ProdName = @ProdNameOld";
 
             SqlCommand cmd = new SqlCommand(strSqlUpdate, con);
@@ -165,7 +162,7 @@ namespace DBClasses
             cmd.Parameters.AddWithValue("@ProdNameNew", newProduct.ProdName);
 
             //set parameters for old customer dat
-            cmd.Parameters.AddWithValue("@ProductIDOld", oldProduct.ProductID);
+            cmd.Parameters.AddWithValue("@ProductIdOld", oldProduct.ProductId);
             cmd.Parameters.AddWithValue("@ProdNameOld", oldProduct.ProdName);
 
             try
@@ -194,13 +191,13 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "DELETE FROM Products " +
-                                  "WHERE ProductID = @ProductID " +  //customer id identifies record to update
+                                  "WHERE ProductId = @ProductId " +  //customer id identifies record to update
                                    "AND ProdName = @ProdName";
 
             SqlCommand cmd = new SqlCommand(strSqlUpdate, con);
 
             //set parameters for old customer dat
-            cmd.Parameters.AddWithValue("@ProductID", p.ProductID);
+            cmd.Parameters.AddWithValue("@ProductId", p.ProductId);
             cmd.Parameters.AddWithValue("@ProdName", p.ProdName);
 
             try

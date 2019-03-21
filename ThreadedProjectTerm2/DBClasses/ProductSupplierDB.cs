@@ -29,9 +29,9 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductSupplierID, ProductID, SupplierID " +
+            string strSqlSelect = "SELECT ProductSupplierId, ProductId, SupplierId " +
                                   "FROM Products_Suppliers " +
-                                  "ORDER BY ProductSupplierID";
+                                  "ORDER BY ProductSupplierId";
 
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
@@ -47,9 +47,9 @@ namespace DBClasses
                 {
                     ProductSupplier p = new ProductSupplier();
 
-                    p.ProductSupplierID = Convert.ToInt32(dr["ProductSupplierID"]);
-                    p.ProductID = Convert.ToInt32(dr["ProductID"]);
-                    p.SupplierID = Convert.ToInt32(dr["SupplierID"]);
+                    p.ProductSupplierId = Convert.ToInt32(dr["ProductSupplierId"]);
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
+                    p.SupplierId = Convert.ToInt32(dr["SupplierId"]);
 
                     ps.Add(p);
                 }
@@ -67,7 +67,7 @@ namespace DBClasses
         }
 
 
-        public static List<ProductSupplier> GetProductSuppliersByProductID(int pID)
+        public static List<ProductSupplier> GetProductSuppliersByProductID(int pId)
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
 
@@ -75,14 +75,13 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductSupplierID, ProductID, SupplierID " +
+            string strSqlSelect = "SELECT ProductSupplierId, ProductId, SupplierId " +
                                   "FROM Products_Suppliers " +
-                                  "ORDER BY ProductSupplierID" +
-                                  "WHERE ProductID=@ProductID";
+                                  "WHERE ProductId=@ProductId";
 
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
-            cmd.Parameters.AddWithValue("@ProductID", pID);
+            cmd.Parameters.AddWithValue("@ProductId", pId);
 
             //try-catch sql command execution
             try
@@ -95,9 +94,9 @@ namespace DBClasses
                 {
                     ProductSupplier p = new ProductSupplier();
 
-                    p.ProductSupplierID = Convert.ToInt32(dr["ProductSupplierID"]);
-                    p.ProductID = Convert.ToInt32(dr["ProductID"]);
-                    p.SupplierID = Convert.ToInt32(dr["SupplierID"]);
+                    p.ProductSupplierId = Convert.ToInt32(dr["ProductSupplierId"]);
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
+                    p.SupplierId = Convert.ToInt32(dr["SupplierId"]);
 
                     ps.Add(p);
                 }
@@ -114,7 +113,7 @@ namespace DBClasses
             return ps;
         }
 
-        public static List<ProductSupplier> GetProductSuppliersBySupplierID(int sID)
+        public static List<ProductSupplier> GetProductSuppliersBySupplierID(int sId)
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
 
@@ -122,14 +121,14 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductSupplierID, ProductID, SupplierID " +
+            string strSqlSelect = "SELECT ProductSupplierId, ProductId, SupplierId " +
                                   "FROM Products_Suppliers " +
-                                  "ORDER BY ProductSupplierID" +
-                                  "WHERE SupplierID=@SupplierID";
+                                  "ORDER BY ProductSupplierId" +
+                                  "WHERE SupplierId=@SupplierId";
 
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
-            cmd.Parameters.AddWithValue("@SupplierID", sID);
+            cmd.Parameters.AddWithValue("@SupplierId", sId);
 
             //try-catch sql command execution
             try
@@ -142,9 +141,9 @@ namespace DBClasses
                 {
                     ProductSupplier p = new ProductSupplier();
 
-                    p.ProductSupplierID = Convert.ToInt32(dr["ProductSupplierID"]);
-                    p.ProductID = Convert.ToInt32(dr["ProductID"]);
-                    p.SupplierID = Convert.ToInt32(dr["SupplierID"]);
+                    p.ProductSupplierId = Convert.ToInt32(dr["ProductSupplierId"]);
+                    p.ProductId = Convert.ToInt32(dr["ProductId"]);
+                    p.SupplierId = Convert.ToInt32(dr["SupplierId"]);
 
                     ps.Add(p);
                 }
@@ -161,22 +160,22 @@ namespace DBClasses
             return ps;
         }
 
-        //get ProductSupplier by ID
-        public static ProductSupplier getProductSupplierById(int ProductSupplierID)
+        //get ProductSupplier by Id
+        public static ProductSupplier getProductSupplierById(int ProductSupplierId)
         {
-            ProductSupplier ps = null;  //return null if no ProductSupplier exists for ID
+            ProductSupplier ps = null;  //return null if no ProductSupplier exists for Id
 
 
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create sql statement
-            string strSqlSelect = "SELECT ProductSupplierID, ProductID, SupplierID FROM Products_Suppliers " +
-                                  "WHERE ProductSupplierID = @ProductSupplierID";
+            string strSqlSelect = "SELECT ProductSupplierId, ProductId, SupplierId FROM Products_Suppliers " +
+                                  "WHERE ProductSupplierId = @ProductSupplierId";
 
             //create sql command
             SqlCommand cmd = new SqlCommand(strSqlSelect, con);
 
-            cmd.Parameters.AddWithValue("@ProductSupplierID", ProductSupplierID);
+            cmd.Parameters.AddWithValue("@ProductSupplierId", ProductSupplierId);
 
             try
             {
@@ -186,9 +185,9 @@ namespace DBClasses
 
                 if (dr.Read())
                 {
-                    ps.ProductSupplierID = Convert.ToInt32(dr["ProductSupplierID"]);
-                    ps.ProductID = Convert.ToInt32(dr["ProductID"]);
-                    ps.SupplierID = Convert.ToInt32(dr["SupplierID"]);
+                    ps.ProductSupplierId = Convert.ToInt32(dr["ProductSupplierId"]);
+                    ps.ProductId = Convert.ToInt32(dr["ProductId"]);
+                    ps.SupplierId = Convert.ToInt32(dr["SupplierId"]);
 
                 }
             }
@@ -207,20 +206,20 @@ namespace DBClasses
         //Add ProductSupplier
         public static int AddProductSupplier(ProductSupplier ps)
         {
-            int ProductSupplierID = 0;
+            int ProductSupplierId = 0;
 
             //create connection
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             //create SQL statement
-            string strSqlInsert = "INSERT INTO Products_Suppliers(ProductID, SupplierID)" +
-                                        "VALUES(@Product, @SupplierID)";
+            string strSqlInsert = "INSERT INTO Products_Suppliers(ProductId, SupplierId)" +
+                                        "VALUES(@Product, @SupplierId)";
 
             //create sql command and populate parameters
             SqlCommand cmd = new SqlCommand(strSqlInsert, con);
 
-            cmd.Parameters.AddWithValue("@ProductID", ps.ProductID);
-            cmd.Parameters.AddWithValue("@SupplierID", ps.SupplierID);
+            cmd.Parameters.AddWithValue("@ProductId", ps.ProductId);
+            cmd.Parameters.AddWithValue("@SupplierId", ps.SupplierId);
 
             try
             {
@@ -228,11 +227,11 @@ namespace DBClasses
                 //execute insert statement
                 cmd.ExecuteNonQuery();
 
-                //get ProductSupplier id of inserted record from database
+                //get ProductSupplier Id of inserted record from database
                 string strSqlSelect = "SELECT IDENT_CURRENT('Products_Suppliers') FROM Products_Suppliers";
                 SqlCommand cmdSelect = new SqlCommand(strSqlSelect, con);
 
-                ProductSupplierID = Convert.ToInt32(cmdSelect.ExecuteScalar());
+                ProductSupplierId = Convert.ToInt32(cmdSelect.ExecuteScalar());
             }
             catch (Exception ex)  //handle sql exceptions
             {
@@ -244,7 +243,7 @@ namespace DBClasses
             }
 
             //return result
-            return ProductSupplierID;
+            return ProductSupplierId;
         }
 
         //Update ProductSupplier
@@ -256,27 +255,27 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "UPDATE Products_Suppliers " +
-                                  "SET ProductID = @ProductIDNew, SupplierID = @SupplierIDNew, " +
-                                  "WHERE ProductSupplierID = @ProductSupplierIDOld " +  //customer id identifies record to update
-                                        "AND ProductID = @ProductIDOld " +
-                                        "AND SupplierID = @SupplierIDOld";
+                                  "SET ProductId = @ProductIdNew, SupplierId = @SupplierIdNew, " +
+                                  "WHERE ProductSupplierId = @ProductSupplierIdOld " +  //customer Id Identifies record to update
+                                        "AND ProductId = @ProductIdOld " +
+                                        "AND SupplierId = @SupplierIdOld";
 
             SqlCommand cmd = new SqlCommand(strSqlUpdate, con);
 
             //set parameters for new customer data
-            cmd.Parameters.AddWithValue("@ProductIDNew", newProductSupplier.ProductID);
-            cmd.Parameters.AddWithValue("@SupplierIDNew", newProductSupplier.SupplierID);
+            cmd.Parameters.AddWithValue("@ProductIdNew", newProductSupplier.ProductId);
+            cmd.Parameters.AddWithValue("@SupplierIdNew", newProductSupplier.SupplierId);
 
             //set parameters for old customer dat
-            cmd.Parameters.AddWithValue("@ProductSupplierIDOld", oldProductSupplier.ProductSupplierID);
-            cmd.Parameters.AddWithValue("@ProductIDOld", oldProductSupplier.ProductID);
-            cmd.Parameters.AddWithValue("@SupplierIDOld", oldProductSupplier.SupplierID);
+            cmd.Parameters.AddWithValue("@ProductSupplierIdOld", oldProductSupplier.ProductSupplierId);
+            cmd.Parameters.AddWithValue("@ProductIdOld", oldProductSupplier.ProductId);
+            cmd.Parameters.AddWithValue("@SupplierIdOld", oldProductSupplier.SupplierId);
 
             try
             {
                 con.Open();
                 int rowsUpdated = cmd.ExecuteNonQuery();
-                if (rowsUpdated == 0) success = false; //did not update, most likey b/c of concurreny exception event
+                if (rowsUpdated == 0) success = false; //dId not update, most likey b/c of concurreny exception event
             }
             catch (Exception ex)
             {
@@ -298,22 +297,22 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "DELETE FROM ProductSuppliers " +
-                                  "WHERE ProductSupplierID = @ProductSupplierID " +  //customer id identifies record to update
-                                        "AND ProductID = @ProductID " +
-                                        "AND SupplierID = @SupplierID";
+                                  "WHERE ProductSupplierId = @ProductSupplierId " +  //customer Id Identifies record to update
+                                        "AND ProductId = @ProductId " +
+                                        "AND SupplierId = @SupplierId";
 
             SqlCommand cmd = new SqlCommand(strSqlUpdate, con);
 
             //set parameters for product supplier item data
-            cmd.Parameters.AddWithValue("@ProductSupplierID", ps.ProductSupplierID);
-            cmd.Parameters.AddWithValue("@ProductID", ps.ProductID);
-            cmd.Parameters.AddWithValue("@SupplierID", ps.SupplierID);
+            cmd.Parameters.AddWithValue("@ProductSupplierId", ps.ProductSupplierId);
+            cmd.Parameters.AddWithValue("@ProductId", ps.ProductId);
+            cmd.Parameters.AddWithValue("@SupplierId", ps.SupplierId);
 
             try
             {
                 con.Open();
                 int rowsUpdated = cmd.ExecuteNonQuery();
-                if (rowsUpdated == 0) success = false; //did not update, most likey b/c of concurreny exception event
+                if (rowsUpdated == 0) success = false; //dId not update, most likey b/c of concurreny exception event
             }
             catch (Exception ex)
             {

@@ -30,43 +30,53 @@
         {
             this.components = new System.ComponentModel.Container();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lstSuppliers = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.productSupplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.grpProdSupplier = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.lstProducts = new System.Windows.Forms.ListBox();
-            this.productSupplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).BeginInit();
+            this.grpProdSupplier.SuspendLayout();
             this.SuspendLayout();
-  
-            // lstSuppliers
             // 
-            this.lstSuppliers.DataSource = this.productSupplierBindingSource;
-            this.lstSuppliers.DisplayMember = "SupplierID";
-            this.lstSuppliers.FormattingEnabled = true;
-            this.lstSuppliers.ItemHeight = 20;
-            this.lstSuppliers.Location = new System.Drawing.Point(18, 123);
-            this.lstSuppliers.Name = "lstSuppliers";
-            this.lstSuppliers.Size = new System.Drawing.Size(427, 404);
-            this.lstSuppliers.TabIndex = 2;
-            this.lstSuppliers.ValueMember = "ProductSupplierID";
+            // productSupplierBindingSource
             // 
-            // groupBox1
+            this.productSupplierBindingSource.DataSource = typeof(TravelExpertsClasses.ProductSupplier);
             // 
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.lstSuppliers);
-            this.groupBox1.Location = new System.Drawing.Point(499, 32);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 551);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Suppliers for product [insert product name]";
+            // grpProdSupplier
+            // 
+            this.grpProdSupplier.Controls.Add(this.listBox1);
+            this.grpProdSupplier.Controls.Add(this.button5);
+            this.grpProdSupplier.Controls.Add(this.button4);
+            this.grpProdSupplier.Location = new System.Drawing.Point(499, 32);
+            this.grpProdSupplier.Name = "grpProdSupplier";
+            this.grpProdSupplier.Size = new System.Drawing.Size(479, 551);
+            this.grpProdSupplier.TabIndex = 3;
+            this.grpProdSupplier.TabStop = false;
+            this.grpProdSupplier.Text = "Suppliers for product [insert product name]";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(18, 81);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(243, 36);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Remove supplier from product";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(18, 36);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(243, 36);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Add supplier to product";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -95,24 +105,6 @@
             this.button3.Text = "Delete";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(33, 61);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(136, 36);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Add supplier";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(190, 61);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(136, 36);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Remove supplier";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
             // lstProducts
             // 
             this.lstProducts.DataSource = this.productBindingSource;
@@ -126,9 +118,14 @@
             this.lstProducts.ValueMember = "ProductID";
             this.lstProducts.SelectedIndexChanged += new System.EventHandler(this.lstProducts_SelectedIndexChanged);
             // 
-            // productSupplierBindingSource
+            // listBox1
             // 
-            this.productSupplierBindingSource.DataSource = typeof(TravelExpertsClasses.ProductSupplier);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(45, 149);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(348, 344);
+            this.listBox1.TabIndex = 7;
             // 
             // frmProducts
             // 
@@ -138,15 +135,15 @@
             this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpProdSupplier);
             this.Controls.Add(this.button1);
             this.Name = "frmProducts";
             this.Text = "frmProducts";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmProducts_FormClosed);
             this.Load += new System.EventHandler(this.frmProducts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).EndInit();
+            this.grpProdSupplier.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -154,8 +151,7 @@
         #endregion
 
         private System.Windows.Forms.BindingSource productBindingSource;
-        private System.Windows.Forms.ListBox lstSuppliers;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpProdSupplier;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
@@ -163,5 +159,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListBox lstProducts;
         private System.Windows.Forms.BindingSource productSupplierBindingSource;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

@@ -38,21 +38,47 @@ namespace ThreadedProjectTerm2
             lstProducts.DataSource = productsList;
 
             //set form to first item in product list
-            //supplierList = SuppliersDB.GetSuppliers();
+            supplierList = SuppliersDB.GetSuppliers();
 
-            LoadProduct();
+            // foreach (Supplier s in supplierList)
+            // Console.WriteLine(s.SupName);
 
+            //LoadProduct();
         }
 
         private void LoadProduct()
         {
+            listBox1.Items.Clear();
+            Console.WriteLine(lstProducts.SelectedValue.ToString());
             currentProduct = ProductDB.getProductById(Convert.ToInt32(lstProducts.SelectedValue));
             productSupplierList = ProductSupplierDB.GetProductSuppliersByProductID(currentProduct.ProductId);
-            lstSuppliers.DataSource = productSupplierList;
+            grpProdSupplier.Text = "Suppliers providing product: " + currentProduct.ProdName;
+            Console.WriteLine(productSupplierList.Count.ToString());
+            Console.WriteLine(currentProduct.ToString());
+            var prodSuppliersNames = from productSupplierItem in productSupplierList
+                                     join supplierItem in supplierList
+                                     on productSupplierItem.SupplierId equals supplierItem.SupID
+                                     orderby supplierItem.SupName
+                                     select new { productSupplierItem.ProductSupplierId, supplierItem.SupName };
+
+            //Console.WriteLine(prodSuppliersNames.ToString());
+
+
+
+            foreach (var item in prodSuppliersNames)
+            {
+                listBox1.Items.Add(item.SupName);
+            }
         }
+        
 
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
+           // productsList = ProductDB.GetProducts();
+            //lstProducts.DataSource = productsList;
+
+            supplierList = SuppliersDB.GetSuppliers();
+
             LoadProduct();
         }
 
