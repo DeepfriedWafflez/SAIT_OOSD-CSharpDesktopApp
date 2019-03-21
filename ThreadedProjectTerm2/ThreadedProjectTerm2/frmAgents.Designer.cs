@@ -47,7 +47,8 @@
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.AgentsPanel = new System.Windows.Forms.Panel();
+            this.agtPositionComboBox = new System.Windows.Forms.ComboBox();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
@@ -60,7 +61,8 @@
             this.agtFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.agtLastNameTextBox = new System.Windows.Forms.TextBox();
             this.agtMiddleInitialTextBox = new System.Windows.Forms.TextBox();
-            this.agtPositionTextBox = new System.Windows.Forms.TextBox();
+            this.agencyIDComboBox = new System.Windows.Forms.ComboBox();
+            this.agencyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             agencyIDLabel = new System.Windows.Forms.Label();
             agentIDLabel = new System.Windows.Forms.Label();
             agtBusPhoneLabel = new System.Windows.Forms.Label();
@@ -71,7 +73,8 @@
             agtPositionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.agentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.agentDataGridView)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.AgentsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.agencyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // agencyIDLabel
@@ -177,6 +180,7 @@
             this.dataGridViewTextBoxColumn1.FillWeight = 75F;
             this.dataGridViewTextBoxColumn1.HeaderText = "Agent ID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 75;
             // 
             // dataGridViewTextBoxColumn2
@@ -184,6 +188,7 @@
             this.dataGridViewTextBoxColumn2.DataPropertyName = "AgtFirstName";
             this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Width = 105;
             // 
             // dataGridViewTextBoxColumn3
@@ -191,6 +196,7 @@
             this.dataGridViewTextBoxColumn3.DataPropertyName = "AgtLastName";
             this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Width = 105;
             // 
             // dataGridViewTextBoxColumn4
@@ -199,6 +205,7 @@
             this.dataGridViewTextBoxColumn4.FillWeight = 60F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Middle Initial";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 55;
             // 
             // dataGridViewTextBoxColumn5
@@ -206,6 +213,7 @@
             this.dataGridViewTextBoxColumn5.DataPropertyName = "AgtBusPhone";
             this.dataGridViewTextBoxColumn5.HeaderText = "Business Phone";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
             this.dataGridViewTextBoxColumn5.Width = 120;
             // 
             // dataGridViewTextBoxColumn6
@@ -214,6 +222,7 @@
             this.dataGridViewTextBoxColumn6.DataPropertyName = "AgtEmail";
             this.dataGridViewTextBoxColumn6.HeaderText = "Email Address";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -221,6 +230,7 @@
             this.dataGridViewTextBoxColumn7.FillWeight = 80F;
             this.dataGridViewTextBoxColumn7.HeaderText = "Position";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 80;
             // 
             // dataGridViewTextBoxColumn8
@@ -229,37 +239,51 @@
             this.dataGridViewTextBoxColumn8.FillWeight = 70F;
             this.dataGridViewTextBoxColumn8.HeaderText = "Agency ID";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
             this.dataGridViewTextBoxColumn8.Width = 70;
             // 
-            // panel1
+            // AgentsPanel
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel1.Controls.Add(this.UpdateButton);
-            this.panel1.Controls.Add(this.DeleteButton);
-            this.panel1.Controls.Add(this.ClearButton);
-            this.panel1.Controls.Add(this.AddButton);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(agencyIDLabel);
-            this.panel1.Controls.Add(this.agencyIDTextBox);
-            this.panel1.Controls.Add(agentIDLabel);
-            this.panel1.Controls.Add(this.agentIDTextBox);
-            this.panel1.Controls.Add(agtBusPhoneLabel);
-            this.panel1.Controls.Add(this.agtBusPhoneTextBox);
-            this.panel1.Controls.Add(agtEmailLabel);
-            this.panel1.Controls.Add(this.agtEmailTextBox);
-            this.panel1.Controls.Add(agtFirstNameLabel);
-            this.panel1.Controls.Add(this.agtFirstNameTextBox);
-            this.panel1.Controls.Add(agtLastNameLabel);
-            this.panel1.Controls.Add(this.agtLastNameTextBox);
-            this.panel1.Controls.Add(agtMiddleInitialLabel);
-            this.panel1.Controls.Add(this.agtMiddleInitialTextBox);
-            this.panel1.Controls.Add(agtPositionLabel);
-            this.panel1.Controls.Add(this.agtPositionTextBox);
-            this.panel1.Controls.Add(this.agentDataGridView);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(881, 495);
-            this.panel1.TabIndex = 2;
+            this.AgentsPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AgentsPanel.Controls.Add(this.agencyIDComboBox);
+            this.AgentsPanel.Controls.Add(this.agtPositionComboBox);
+            this.AgentsPanel.Controls.Add(this.UpdateButton);
+            this.AgentsPanel.Controls.Add(this.DeleteButton);
+            this.AgentsPanel.Controls.Add(this.ClearButton);
+            this.AgentsPanel.Controls.Add(this.AddButton);
+            this.AgentsPanel.Controls.Add(this.label1);
+            this.AgentsPanel.Controls.Add(agencyIDLabel);
+            this.AgentsPanel.Controls.Add(this.agencyIDTextBox);
+            this.AgentsPanel.Controls.Add(agentIDLabel);
+            this.AgentsPanel.Controls.Add(this.agentIDTextBox);
+            this.AgentsPanel.Controls.Add(agtBusPhoneLabel);
+            this.AgentsPanel.Controls.Add(this.agtBusPhoneTextBox);
+            this.AgentsPanel.Controls.Add(agtEmailLabel);
+            this.AgentsPanel.Controls.Add(this.agtEmailTextBox);
+            this.AgentsPanel.Controls.Add(agtFirstNameLabel);
+            this.AgentsPanel.Controls.Add(this.agtFirstNameTextBox);
+            this.AgentsPanel.Controls.Add(agtLastNameLabel);
+            this.AgentsPanel.Controls.Add(this.agtLastNameTextBox);
+            this.AgentsPanel.Controls.Add(agtMiddleInitialLabel);
+            this.AgentsPanel.Controls.Add(this.agtMiddleInitialTextBox);
+            this.AgentsPanel.Controls.Add(agtPositionLabel);
+            this.AgentsPanel.Controls.Add(this.agentDataGridView);
+            this.AgentsPanel.Location = new System.Drawing.Point(3, 4);
+            this.AgentsPanel.Name = "AgentsPanel";
+            this.AgentsPanel.Size = new System.Drawing.Size(1013, 495);
+            this.AgentsPanel.TabIndex = 2;
+            // 
+            // agtPositionComboBox
+            // 
+            this.agtPositionComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.agentBindingSource, "AgtPosition", true));
+            this.agtPositionComboBox.DataSource = this.agentBindingSource;
+            this.agtPositionComboBox.DisplayMember = "AgtPosition";
+            this.agtPositionComboBox.FormattingEnabled = true;
+            this.agtPositionComboBox.Location = new System.Drawing.Point(573, 118);
+            this.agtPositionComboBox.Name = "agtPositionComboBox";
+            this.agtPositionComboBox.Size = new System.Drawing.Size(120, 21);
+            this.agtPositionComboBox.TabIndex = 23;
+            this.agtPositionComboBox.ValueMember = "AgtPosition";
             // 
             // UpdateButton
             // 
@@ -313,10 +337,10 @@
             // agencyIDTextBox
             // 
             this.agencyIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgencyID", true));
-            this.agencyIDTextBox.Location = new System.Drawing.Point(573, 145);
+            this.agencyIDTextBox.Location = new System.Drawing.Point(709, 145);
             this.agencyIDTextBox.Name = "agencyIDTextBox";
             this.agencyIDTextBox.Size = new System.Drawing.Size(120, 20);
-            this.agencyIDTextBox.TabIndex = 2;
+            this.agencyIDTextBox.TabIndex = 7;
             // 
             // agentIDTextBox
             // 
@@ -333,7 +357,7 @@
             this.agtBusPhoneTextBox.Location = new System.Drawing.Point(573, 64);
             this.agtBusPhoneTextBox.Name = "agtBusPhoneTextBox";
             this.agtBusPhoneTextBox.Size = new System.Drawing.Size(120, 20);
-            this.agtBusPhoneTextBox.TabIndex = 6;
+            this.agtBusPhoneTextBox.TabIndex = 4;
             // 
             // agtEmailTextBox
             // 
@@ -341,7 +365,7 @@
             this.agtEmailTextBox.Location = new System.Drawing.Point(573, 92);
             this.agtEmailTextBox.Name = "agtEmailTextBox";
             this.agtEmailTextBox.Size = new System.Drawing.Size(120, 20);
-            this.agtEmailTextBox.TabIndex = 8;
+            this.agtEmailTextBox.TabIndex = 5;
             // 
             // agtFirstNameTextBox
             // 
@@ -349,7 +373,7 @@
             this.agtFirstNameTextBox.Location = new System.Drawing.Point(290, 92);
             this.agtFirstNameTextBox.Name = "agtFirstNameTextBox";
             this.agtFirstNameTextBox.Size = new System.Drawing.Size(116, 20);
-            this.agtFirstNameTextBox.TabIndex = 10;
+            this.agtFirstNameTextBox.TabIndex = 1;
             // 
             // agtLastNameTextBox
             // 
@@ -357,7 +381,7 @@
             this.agtLastNameTextBox.Location = new System.Drawing.Point(290, 119);
             this.agtLastNameTextBox.Name = "agtLastNameTextBox";
             this.agtLastNameTextBox.Size = new System.Drawing.Size(116, 20);
-            this.agtLastNameTextBox.TabIndex = 12;
+            this.agtLastNameTextBox.TabIndex = 2;
             // 
             // agtMiddleInitialTextBox
             // 
@@ -365,22 +389,31 @@
             this.agtMiddleInitialTextBox.Location = new System.Drawing.Point(290, 145);
             this.agtMiddleInitialTextBox.Name = "agtMiddleInitialTextBox";
             this.agtMiddleInitialTextBox.Size = new System.Drawing.Size(116, 20);
-            this.agtMiddleInitialTextBox.TabIndex = 14;
+            this.agtMiddleInitialTextBox.TabIndex = 3;
             // 
-            // agtPositionTextBox
+            // agencyIDComboBox
             // 
-            this.agtPositionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgtPosition", true));
-            this.agtPositionTextBox.Location = new System.Drawing.Point(573, 119);
-            this.agtPositionTextBox.Name = "agtPositionTextBox";
-            this.agtPositionTextBox.Size = new System.Drawing.Size(120, 20);
-            this.agtPositionTextBox.TabIndex = 16;
+            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgencyID", true));
+            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.agencyBindingSource, "AgencyCity", true));
+            this.agencyIDComboBox.DataSource = this.agentBindingSource;
+            this.agencyIDComboBox.DisplayMember = "AgencyID";
+            this.agencyIDComboBox.FormattingEnabled = true;
+            this.agencyIDComboBox.Location = new System.Drawing.Point(573, 145);
+            this.agencyIDComboBox.Name = "agencyIDComboBox";
+            this.agencyIDComboBox.Size = new System.Drawing.Size(120, 21);
+            this.agencyIDComboBox.TabIndex = 24;
+            this.agencyIDComboBox.ValueMember = "AgencyID";
+            // 
+            // agencyBindingSource
+            // 
+            this.agencyBindingSource.DataSource = typeof(TravelExpertsClasses.Agency);
             // 
             // frmAgents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 494);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1016, 498);
+            this.Controls.Add(this.AgentsPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmAgents";
             this.Text = "frmAgents";
@@ -388,8 +421,9 @@
             this.Load += new System.EventHandler(this.frmAgents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.agentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.agentDataGridView)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.AgentsPanel.ResumeLayout(false);
+            this.AgentsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.agencyBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -406,7 +440,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel AgentsPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox agencyIDTextBox;
         private System.Windows.Forms.TextBox agentIDTextBox;
@@ -415,10 +449,12 @@
         private System.Windows.Forms.TextBox agtFirstNameTextBox;
         private System.Windows.Forms.TextBox agtLastNameTextBox;
         private System.Windows.Forms.TextBox agtMiddleInitialTextBox;
-        private System.Windows.Forms.TextBox agtPositionTextBox;
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.ComboBox agtPositionComboBox;
+        private System.Windows.Forms.ComboBox agencyIDComboBox;
+        private System.Windows.Forms.BindingSource agencyBindingSource;
     }
 }

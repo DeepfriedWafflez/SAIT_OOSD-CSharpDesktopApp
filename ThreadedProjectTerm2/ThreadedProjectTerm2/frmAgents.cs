@@ -25,6 +25,7 @@ namespace ThreadedProjectTerm2
         List<Agent> agents = null;
         Agent agt;
         Agent tempAgent = new Agent(); //holder for updating
+        List<Agency> agencies = null;
 
         public frmMain activeFrmMain;
         public frmAgents()
@@ -38,6 +39,18 @@ namespace ThreadedProjectTerm2
             this.WindowState = FormWindowState.Maximized;
             agents = AgentDB.GetAgents();
             agentDataGridView.DataSource = agents;
+
+            //clears out the duplicate types before they are added to the combo box
+            List<string> agtPositions = new List<string>();
+            foreach (Agent agentPos in agents)
+                if (!agtPositions.Contains(agentPos.AgtPosition))
+                    agtPositions.Add(agentPos.AgtPosition);
+
+            agtPositionComboBox.DataSource = agtPositions;
+            agtPositionComboBox.SelectedIndex = 2; //hovers over the junior agent option
+
+            agencies = AgencyDB.GetAgencies();
+            agencyIDComboBox.DataSource = agencies;
         }
 
         private void frmAgents_FormClosed(object sender, FormClosedEventArgs e)
@@ -58,7 +71,7 @@ namespace ThreadedProjectTerm2
                 agt.AgtMiddleInitial = agtMiddleInitialTextBox.Text;
                 agt.AgtBusPhone = agtBusPhoneTextBox.Text;
                 agt.AgtEmail = agtEmailTextBox.Text;
-                agt.AgtPosition = agtPositionTextBox.Text;
+                agt.AgtPosition = agtPositionComboBox.Text;
                 agt.AgencyID = Convert.ToInt32(agencyIDTextBox.Text);
 
                 try
@@ -129,33 +142,42 @@ namespace ThreadedProjectTerm2
         //loads the datagrid row into the datafields
         private void agentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            bool built = false;
-
-            do
+            try
             {
-                agentIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-                agtFirstNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-                agtLastNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-                agtMiddleInitialTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
-                agtBusPhoneTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
-                agtEmailTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
-                agtPositionTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
-                agencyIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+                bool built = false;
 
-                built = true;//stops the do after 1 loop
-            } while (!built);
+                do
+                {
+                    agentIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    agtFirstNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    agtLastNameTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    agtMiddleInitialTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    agtBusPhoneTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    agtEmailTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    agtPositionComboBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
+                    agencyIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    agencyIDComboBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
 
-            if (built)
-            {
-                BuildAgent(tempAgent);
-            }
-            
+                    built = true;//stops the do after 1 loop
+                } while (!built);
+
+                if (built)
+                {
+                    BuildAgent(tempAgent);
+                }
+            }catch(Exception ex) { MessageBox.Show("Please click in-bounds!"); } 
         }
 
         //checks the datafields are valid
         private bool isValid()
         {
-            return true;
+            if (Validator.IsPresent(agentIDTextBox)&& Validator.isNonNegative(agentIDTextBox, "Agent Id") 
+                && Validator.isWholeNumber(agentIDTextBox, "Agent Id") && Validator.IsPresent(agtFirstNameTextBox) 
+                && Validator.IsPresent(agtLastNameTextBox) && Validator.IsPresent(agtBusPhoneTextBox) &&
+                Validator.IsPresent(agtEmailTextBox) && Validator.IsPresent(agencyIDTextBox))
+            {
+                return true;
+            }else { return false; }
         }
 
         //builds the agent
@@ -167,7 +189,7 @@ namespace ThreadedProjectTerm2
             agt.AgtMiddleInitial = agtMiddleInitialTextBox.Text;
             agt.AgtBusPhone = agtBusPhoneTextBox.Text;
             agt.AgtEmail = agtEmailTextBox.Text;
-            agt.AgtPosition = agtPositionTextBox.Text;
+            agt.AgtPosition = agtPositionComboBox.Text;
             agt.AgencyID = Convert.ToInt32(agencyIDTextBox.Text);
         }
 
@@ -180,7 +202,7 @@ namespace ThreadedProjectTerm2
             agtMiddleInitialTextBox.Clear();
             agtBusPhoneTextBox.Clear();
             agtEmailTextBox.Clear();
-            agtPositionTextBox.Clear();
+            agtPositionComboBox.SelectedIndex = 2; //hovers over the junior agent option
             agencyIDTextBox.Clear();
 
             //resets the datagrid
