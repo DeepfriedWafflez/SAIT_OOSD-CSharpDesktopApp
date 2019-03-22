@@ -62,7 +62,9 @@ namespace ThreadedProjectTerm2
         //adds an agent
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (isValid())
+          //REBUILD VALIDATION -- No agent ID assigned, automatically done
+          if(Validator.IsPresent(agtFirstNameTextBox) && Validator.IsPresent(agtLastNameTextBox)
+                && Validator.IsPresent(agtBusPhoneTextBox) && Validator.IsPresent(agtEmailTextBox))
             {
                 agt = new Agent();
                 //cant use build agent here since an Id wont be input, it will be auto assign
@@ -72,7 +74,7 @@ namespace ThreadedProjectTerm2
                 agt.AgtBusPhone = agtBusPhoneTextBox.Text;
                 agt.AgtEmail = agtEmailTextBox.Text;
                 agt.AgtPosition = agtPositionComboBox.Text;
-                agt.AgencyID = Convert.ToInt32(agencyIDTextBox.Text);
+                agt.AgencyID = Convert.ToInt32(agencyIDComboBox.SelectedValue);
 
                 try
                 {
@@ -155,8 +157,12 @@ namespace ThreadedProjectTerm2
                     agtBusPhoneTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
                     agtEmailTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[5].Value.ToString();
                     agtPositionComboBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString();
-                    agencyIDTextBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    agencyIDComboBox.Text = agentDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+
+                    var agencyName = (from name in agencies
+                                     where name.AgencyID == (int)agentDataGridView.Rows[e.RowIndex].Cells[7].Value
+                                     select name.AgencyCity).Single();
+                    agencyIDComboBox.Text = agencyName;
+
 
                     built = true;//stops the do after 1 loop
                 } while (!built);
@@ -174,7 +180,7 @@ namespace ThreadedProjectTerm2
             if (Validator.IsPresent(agentIDTextBox)&& Validator.isNonNegative(agentIDTextBox, "Agent Id") 
                 && Validator.isWholeNumber(agentIDTextBox, "Agent Id") && Validator.IsPresent(agtFirstNameTextBox) 
                 && Validator.IsPresent(agtLastNameTextBox) && Validator.IsPresent(agtBusPhoneTextBox) &&
-                Validator.IsPresent(agtEmailTextBox) && Validator.IsPresent(agencyIDTextBox))
+                Validator.IsPresent(agtEmailTextBox))
             {
                 return true;
             }else { return false; }
@@ -190,7 +196,7 @@ namespace ThreadedProjectTerm2
             agt.AgtBusPhone = agtBusPhoneTextBox.Text;
             agt.AgtEmail = agtEmailTextBox.Text;
             agt.AgtPosition = agtPositionComboBox.Text;
-            agt.AgencyID = Convert.ToInt32(agencyIDTextBox.Text);
+            agt.AgencyID = Convert.ToInt32(agencyIDComboBox.SelectedValue);
         }
 
         //clears the content (useful for updating datagrid after add/delete)
@@ -203,7 +209,6 @@ namespace ThreadedProjectTerm2
             agtBusPhoneTextBox.Clear();
             agtEmailTextBox.Clear();
             agtPositionComboBox.SelectedIndex = 2; //hovers over the junior agent option
-            agencyIDTextBox.Clear();
 
             //resets the datagrid
             agents = AgentDB.GetAgents();
