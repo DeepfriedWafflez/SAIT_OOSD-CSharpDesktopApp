@@ -48,21 +48,20 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AgentsPanel = new System.Windows.Forms.Panel();
+            this.agencyIDComboBox = new System.Windows.Forms.ComboBox();
+            this.agencyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.agtPositionComboBox = new System.Windows.Forms.ComboBox();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.agencyIDTextBox = new System.Windows.Forms.TextBox();
             this.agentIDTextBox = new System.Windows.Forms.TextBox();
             this.agtBusPhoneTextBox = new System.Windows.Forms.TextBox();
             this.agtEmailTextBox = new System.Windows.Forms.TextBox();
             this.agtFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.agtLastNameTextBox = new System.Windows.Forms.TextBox();
             this.agtMiddleInitialTextBox = new System.Windows.Forms.TextBox();
-            this.agencyIDComboBox = new System.Windows.Forms.ComboBox();
-            this.agencyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             agencyIDLabel = new System.Windows.Forms.Label();
             agentIDLabel = new System.Windows.Forms.Label();
             agtBusPhoneLabel = new System.Windows.Forms.Label();
@@ -253,7 +252,6 @@
             this.AgentsPanel.Controls.Add(this.AddButton);
             this.AgentsPanel.Controls.Add(this.label1);
             this.AgentsPanel.Controls.Add(agencyIDLabel);
-            this.AgentsPanel.Controls.Add(this.agencyIDTextBox);
             this.AgentsPanel.Controls.Add(agentIDLabel);
             this.AgentsPanel.Controls.Add(this.agentIDTextBox);
             this.AgentsPanel.Controls.Add(agtBusPhoneLabel);
@@ -272,6 +270,23 @@
             this.AgentsPanel.Name = "AgentsPanel";
             this.AgentsPanel.Size = new System.Drawing.Size(1013, 495);
             this.AgentsPanel.TabIndex = 2;
+            // 
+            // agencyIDComboBox
+            // 
+            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgencyID", true));
+            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.agentBindingSource, "AgentID", true));
+            this.agencyIDComboBox.DataSource = this.agencyBindingSource;
+            this.agencyIDComboBox.DisplayMember = "AgencyCity";
+            this.agencyIDComboBox.FormattingEnabled = true;
+            this.agencyIDComboBox.Location = new System.Drawing.Point(573, 145);
+            this.agencyIDComboBox.Name = "agencyIDComboBox";
+            this.agencyIDComboBox.Size = new System.Drawing.Size(120, 21);
+            this.agencyIDComboBox.TabIndex = 24;
+            this.agencyIDComboBox.ValueMember = "AgencyID";
+            // 
+            // agencyBindingSource
+            // 
+            this.agencyBindingSource.DataSource = typeof(TravelExpertsClasses.Agency);
             // 
             // agtPositionComboBox
             // 
@@ -334,14 +349,6 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Agents:       Click on a Cell to Modify it.";
             // 
-            // agencyIDTextBox
-            // 
-            this.agencyIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgencyID", true));
-            this.agencyIDTextBox.Location = new System.Drawing.Point(709, 145);
-            this.agencyIDTextBox.Name = "agencyIDTextBox";
-            this.agencyIDTextBox.Size = new System.Drawing.Size(120, 20);
-            this.agencyIDTextBox.TabIndex = 7;
-            // 
             // agentIDTextBox
             // 
             this.agentIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgentID", true));
@@ -391,23 +398,6 @@
             this.agtMiddleInitialTextBox.Size = new System.Drawing.Size(116, 20);
             this.agtMiddleInitialTextBox.TabIndex = 3;
             // 
-            // agencyIDComboBox
-            // 
-            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.agentBindingSource, "AgencyID", true));
-            this.agencyIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.agencyBindingSource, "AgencyCity", true));
-            this.agencyIDComboBox.DataSource = this.agentBindingSource;
-            this.agencyIDComboBox.DisplayMember = "AgencyID";
-            this.agencyIDComboBox.FormattingEnabled = true;
-            this.agencyIDComboBox.Location = new System.Drawing.Point(573, 145);
-            this.agencyIDComboBox.Name = "agencyIDComboBox";
-            this.agencyIDComboBox.Size = new System.Drawing.Size(120, 21);
-            this.agencyIDComboBox.TabIndex = 24;
-            this.agencyIDComboBox.ValueMember = "AgencyID";
-            // 
-            // agencyBindingSource
-            // 
-            this.agencyBindingSource.DataSource = typeof(TravelExpertsClasses.Agency);
-            // 
             // frmAgents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,7 +432,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.Panel AgentsPanel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox agencyIDTextBox;
         private System.Windows.Forms.TextBox agentIDTextBox;
         private System.Windows.Forms.TextBox agtBusPhoneTextBox;
         private System.Windows.Forms.TextBox agtEmailTextBox;
