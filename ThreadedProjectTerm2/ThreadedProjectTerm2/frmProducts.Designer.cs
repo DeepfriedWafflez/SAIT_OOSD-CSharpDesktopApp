@@ -31,13 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productSupplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnProductEdit = new System.Windows.Forms.Button();
-            this.btnProductAddNew = new System.Windows.Forms.Button();
+            this.btnProductShowEdit = new System.Windows.Forms.Button();
+            this.btnProductShowAddNew = new System.Windows.Forms.Button();
             this.btnProductDelete = new System.Windows.Forms.Button();
             this.grpProductAddEdit = new System.Windows.Forms.GroupBox();
-            this.txtProdEdit = new System.Windows.Forms.TextBox();
-            this.btnProductSave = new System.Windows.Forms.Button();
+            this.btnProductAdd = new System.Windows.Forms.Button();
             this.btnProductCancel = new System.Windows.Forms.Button();
+            this.btnProductSave = new System.Windows.Forms.Button();
+            this.txtProdAddEdit = new System.Windows.Forms.TextBox();
             this.grpProductButtons = new System.Windows.Forms.GroupBox();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -45,13 +46,12 @@
             this.lvProdSuppliers = new System.Windows.Forms.ListView();
             this.PSId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.supName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnProdSupplierDelete = new System.Windows.Forms.Button();
+            this.btnProdSupplierAdd = new System.Windows.Forms.Button();
             this.grpProdSupplierAdd = new System.Windows.Forms.GroupBox();
             this.btnProdSupplierCancel = new System.Windows.Forms.Button();
             this.cboProductSupplierAdd = new System.Windows.Forms.ComboBox();
             this.btnProdSupplierSave = new System.Windows.Forms.Button();
-            this.btnProdSupplierDelete = new System.Windows.Forms.Button();
-            this.btnProdSupplierAdd = new System.Windows.Forms.Button();
-            this.btnProductAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).BeginInit();
             this.grpProductAddEdit.SuspendLayout();
@@ -65,25 +65,25 @@
             // 
             this.productSupplierBindingSource.DataSource = typeof(TravelExpertsClasses.ProductSupplier);
             // 
-            // btnProductEdit
+            // btnProductShowEdit
             // 
-            this.btnProductEdit.Location = new System.Drawing.Point(118, 28);
-            this.btnProductEdit.Name = "btnProductEdit";
-            this.btnProductEdit.Size = new System.Drawing.Size(94, 32);
-            this.btnProductEdit.TabIndex = 3;
-            this.btnProductEdit.Text = "Edit";
-            this.btnProductEdit.UseVisualStyleBackColor = true;
-            this.btnProductEdit.Click += new System.EventHandler(this.btnProductEdit_Click);
+            this.btnProductShowEdit.Location = new System.Drawing.Point(118, 28);
+            this.btnProductShowEdit.Name = "btnProductShowEdit";
+            this.btnProductShowEdit.Size = new System.Drawing.Size(94, 32);
+            this.btnProductShowEdit.TabIndex = 3;
+            this.btnProductShowEdit.Text = "Edit";
+            this.btnProductShowEdit.UseVisualStyleBackColor = true;
+            this.btnProductShowEdit.Click += new System.EventHandler(this.btnProductEdit_Click);
             // 
-            // btnProductAddNew
+            // btnProductShowAddNew
             // 
-            this.btnProductAddNew.Location = new System.Drawing.Point(18, 28);
-            this.btnProductAddNew.Name = "btnProductAddNew";
-            this.btnProductAddNew.Size = new System.Drawing.Size(94, 32);
-            this.btnProductAddNew.TabIndex = 5;
-            this.btnProductAddNew.Text = "Add new";
-            this.btnProductAddNew.UseVisualStyleBackColor = true;
-            this.btnProductAddNew.Click += new System.EventHandler(this.btnProductAdd_Click);
+            this.btnProductShowAddNew.Location = new System.Drawing.Point(18, 28);
+            this.btnProductShowAddNew.Name = "btnProductShowAddNew";
+            this.btnProductShowAddNew.Size = new System.Drawing.Size(94, 32);
+            this.btnProductShowAddNew.TabIndex = 5;
+            this.btnProductShowAddNew.Text = "Add new";
+            this.btnProductShowAddNew.UseVisualStyleBackColor = true;
+            this.btnProductShowAddNew.Click += new System.EventHandler(this.btnProductAdd_Click);
             // 
             // btnProductDelete
             // 
@@ -100,7 +100,7 @@
             this.grpProductAddEdit.Controls.Add(this.btnProductAdd);
             this.grpProductAddEdit.Controls.Add(this.btnProductCancel);
             this.grpProductAddEdit.Controls.Add(this.btnProductSave);
-            this.grpProductAddEdit.Controls.Add(this.txtProdEdit);
+            this.grpProductAddEdit.Controls.Add(this.txtProdAddEdit);
             this.grpProductAddEdit.Location = new System.Drawing.Point(21, 503);
             this.grpProductAddEdit.Name = "grpProductAddEdit";
             this.grpProductAddEdit.Size = new System.Drawing.Size(359, 127);
@@ -109,22 +109,15 @@
             this.grpProductAddEdit.Text = "Add/Edit Product";
             this.grpProductAddEdit.Visible = false;
             // 
-            // txtProdEdit
+            // btnProductAdd
             // 
-            this.txtProdEdit.Location = new System.Drawing.Point(25, 40);
-            this.txtProdEdit.Name = "txtProdEdit";
-            this.txtProdEdit.Size = new System.Drawing.Size(306, 26);
-            this.txtProdEdit.TabIndex = 0;
-            // 
-            // btnProductSave
-            // 
-            this.btnProductSave.Location = new System.Drawing.Point(25, 80);
-            this.btnProductSave.Name = "btnProductSave";
-            this.btnProductSave.Size = new System.Drawing.Size(75, 32);
-            this.btnProductSave.TabIndex = 1;
-            this.btnProductSave.Text = "Save";
-            this.btnProductSave.UseVisualStyleBackColor = true;
-            this.btnProductSave.Click += new System.EventHandler(this.btnProductSave_Click);
+            this.btnProductAdd.Location = new System.Drawing.Point(38, 80);
+            this.btnProductAdd.Name = "btnProductAdd";
+            this.btnProductAdd.Size = new System.Drawing.Size(75, 32);
+            this.btnProductAdd.TabIndex = 3;
+            this.btnProductAdd.Text = "Add";
+            this.btnProductAdd.UseVisualStyleBackColor = true;
+            this.btnProductAdd.Click += new System.EventHandler(this.btnProductAdd_Click_1);
             // 
             // btnProductCancel
             // 
@@ -136,11 +129,28 @@
             this.btnProductCancel.UseVisualStyleBackColor = true;
             this.btnProductCancel.Click += new System.EventHandler(this.btnProductCancel_Click);
             // 
+            // btnProductSave
+            // 
+            this.btnProductSave.Location = new System.Drawing.Point(25, 80);
+            this.btnProductSave.Name = "btnProductSave";
+            this.btnProductSave.Size = new System.Drawing.Size(75, 32);
+            this.btnProductSave.TabIndex = 1;
+            this.btnProductSave.Text = "Save";
+            this.btnProductSave.UseVisualStyleBackColor = true;
+            this.btnProductSave.Click += new System.EventHandler(this.btnProductSave_Click);
+            // 
+            // txtProdAddEdit
+            // 
+            this.txtProdAddEdit.Location = new System.Drawing.Point(25, 40);
+            this.txtProdAddEdit.Name = "txtProdAddEdit";
+            this.txtProdAddEdit.Size = new System.Drawing.Size(306, 26);
+            this.txtProdAddEdit.TabIndex = 0;
+            // 
             // grpProductButtons
             // 
             this.grpProductButtons.Controls.Add(this.lstProducts);
-            this.grpProductButtons.Controls.Add(this.btnProductAddNew);
-            this.grpProductButtons.Controls.Add(this.btnProductEdit);
+            this.grpProductButtons.Controls.Add(this.btnProductShowAddNew);
+            this.grpProductButtons.Controls.Add(this.btnProductShowEdit);
             this.grpProductButtons.Controls.Add(this.btnProductDelete);
             this.grpProductButtons.Location = new System.Drawing.Point(28, 32);
             this.grpProductButtons.Name = "grpProductButtons";
@@ -202,6 +212,26 @@
             this.supName.Text = "Supplier Name";
             this.supName.Width = 300;
             // 
+            // btnProdSupplierDelete
+            // 
+            this.btnProdSupplierDelete.Location = new System.Drawing.Point(18, 38);
+            this.btnProdSupplierDelete.Name = "btnProdSupplierDelete";
+            this.btnProdSupplierDelete.Size = new System.Drawing.Size(243, 36);
+            this.btnProdSupplierDelete.TabIndex = 6;
+            this.btnProdSupplierDelete.Text = "Remove supplier from product";
+            this.btnProdSupplierDelete.UseVisualStyleBackColor = true;
+            this.btnProdSupplierDelete.Click += new System.EventHandler(this.btnProdSupplierDelete_Click);
+            // 
+            // btnProdSupplierAdd
+            // 
+            this.btnProdSupplierAdd.Location = new System.Drawing.Point(267, 38);
+            this.btnProdSupplierAdd.Name = "btnProdSupplierAdd";
+            this.btnProdSupplierAdd.Size = new System.Drawing.Size(243, 36);
+            this.btnProdSupplierAdd.TabIndex = 5;
+            this.btnProdSupplierAdd.Text = "Add supplier for this product";
+            this.btnProdSupplierAdd.UseVisualStyleBackColor = true;
+            this.btnProdSupplierAdd.Click += new System.EventHandler(this.btnProdSupplierAdd_Click);
+            // 
             // grpProdSupplierAdd
             // 
             this.grpProdSupplierAdd.Controls.Add(this.btnProdSupplierCancel);
@@ -243,36 +273,6 @@
             this.btnProdSupplierSave.UseVisualStyleBackColor = true;
             this.btnProdSupplierSave.Click += new System.EventHandler(this.btnProdSupplierSave_Click);
             // 
-            // btnProdSupplierDelete
-            // 
-            this.btnProdSupplierDelete.Location = new System.Drawing.Point(18, 38);
-            this.btnProdSupplierDelete.Name = "btnProdSupplierDelete";
-            this.btnProdSupplierDelete.Size = new System.Drawing.Size(243, 36);
-            this.btnProdSupplierDelete.TabIndex = 6;
-            this.btnProdSupplierDelete.Text = "Remove supplier from product";
-            this.btnProdSupplierDelete.UseVisualStyleBackColor = true;
-            this.btnProdSupplierDelete.Click += new System.EventHandler(this.btnProdSupplierDelete_Click);
-            // 
-            // btnProdSupplierAdd
-            // 
-            this.btnProdSupplierAdd.Location = new System.Drawing.Point(267, 38);
-            this.btnProdSupplierAdd.Name = "btnProdSupplierAdd";
-            this.btnProdSupplierAdd.Size = new System.Drawing.Size(243, 36);
-            this.btnProdSupplierAdd.TabIndex = 5;
-            this.btnProdSupplierAdd.Text = "Add supplier for this product";
-            this.btnProdSupplierAdd.UseVisualStyleBackColor = true;
-            this.btnProdSupplierAdd.Click += new System.EventHandler(this.btnProdSupplierAdd_Click);
-            // 
-            // btnProductAdd
-            // 
-            this.btnProductAdd.Location = new System.Drawing.Point(33, 80);
-            this.btnProductAdd.Name = "btnProductAdd";
-            this.btnProductAdd.Size = new System.Drawing.Size(75, 32);
-            this.btnProductAdd.TabIndex = 3;
-            this.btnProductAdd.Text = "Add";
-            this.btnProductAdd.UseVisualStyleBackColor = true;
-            this.btnProductAdd.Click += new System.EventHandler(this.cmdAdd_Click);
-            // 
             // frmProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -301,14 +301,14 @@
         #endregion
 
         private System.Windows.Forms.BindingSource productBindingSource;
-        private System.Windows.Forms.Button btnProductEdit;
-        private System.Windows.Forms.Button btnProductAddNew;
+        private System.Windows.Forms.Button btnProductShowEdit;
+        private System.Windows.Forms.Button btnProductShowAddNew;
         private System.Windows.Forms.Button btnProductDelete;
         private System.Windows.Forms.BindingSource productSupplierBindingSource;
         private System.Windows.Forms.GroupBox grpProductAddEdit;
         private System.Windows.Forms.Button btnProductCancel;
         private System.Windows.Forms.Button btnProductSave;
-        private System.Windows.Forms.TextBox txtProdEdit;
+        private System.Windows.Forms.TextBox txtProdAddEdit;
         private System.Windows.Forms.GroupBox grpProductButtons;
         private System.Windows.Forms.ListBox lstProducts;
         private System.Windows.Forms.BindingSource productBindingSource1;

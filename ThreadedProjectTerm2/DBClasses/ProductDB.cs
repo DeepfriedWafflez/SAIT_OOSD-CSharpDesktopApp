@@ -152,9 +152,9 @@ namespace DBClasses
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
             string strSqlUpdate = "UPDATE Products " +
-                                    "SET ProdName = @ProdNameNew, " +
-                                    "WHERE ProductId = @ProductIdOld " +  //customer id identifies record to update
-                                        "AND ProdName = @ProdNameOld";
+                                    "SET ProdName = @ProdNameNew " +
+                                    "WHERE ProductId = @ProductIdOld ";// +  //customer id identifies record to update
+                                        //"AND ProdName = @ProdNameOld";
 
             SqlCommand cmd = new SqlCommand(strSqlUpdate, con);
 
@@ -182,7 +182,7 @@ namespace DBClasses
             return success;
         }
 
-        //Update Product
+        //Delete Product
         public static bool DeleteProduct(Product p)
         {
 
