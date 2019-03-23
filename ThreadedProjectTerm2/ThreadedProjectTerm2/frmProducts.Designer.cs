@@ -52,6 +52,7 @@
             this.btnProdSupplierCancel = new System.Windows.Forms.Button();
             this.cboProductSupplierAdd = new System.Windows.Forms.ComboBox();
             this.btnProdSupplierSave = new System.Windows.Forms.Button();
+            this.supplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).BeginInit();
             this.grpProductAddEdit.SuspendLayout();
@@ -59,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
             this.grpProdSupplier.SuspendLayout();
             this.grpProdSupplierAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // productSupplierBindingSource
@@ -257,11 +259,14 @@
             // 
             // cboProductSupplierAdd
             // 
+            this.cboProductSupplierAdd.DataSource = this.supplierBindingSource;
+            this.cboProductSupplierAdd.DisplayMember = "SupName";
             this.cboProductSupplierAdd.FormattingEnabled = true;
             this.cboProductSupplierAdd.Location = new System.Drawing.Point(24, 42);
             this.cboProductSupplierAdd.Name = "cboProductSupplierAdd";
-            this.cboProductSupplierAdd.Size = new System.Drawing.Size(310, 28);
+            this.cboProductSupplierAdd.Size = new System.Drawing.Size(486, 28);
             this.cboProductSupplierAdd.TabIndex = 0;
+            this.cboProductSupplierAdd.ValueMember = "SupID";
             // 
             // btnProdSupplierSave
             // 
@@ -272,6 +277,10 @@
             this.btnProdSupplierSave.Text = "Add";
             this.btnProdSupplierSave.UseVisualStyleBackColor = true;
             this.btnProdSupplierSave.Click += new System.EventHandler(this.btnProdSupplierSave_Click);
+            // 
+            // supplierBindingSource
+            // 
+            this.supplierBindingSource.DataSource = typeof(TravelExpertsClasses.Supplier);
             // 
             // frmProducts
             // 
@@ -294,6 +303,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
             this.grpProdSupplier.ResumeLayout(false);
             this.grpProdSupplierAdd.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -323,5 +333,6 @@
         private System.Windows.Forms.Button btnProdSupplierDelete;
         private System.Windows.Forms.Button btnProdSupplierAdd;
         private System.Windows.Forms.Button btnProductAdd;
+        private System.Windows.Forms.BindingSource supplierBindingSource;
     }
 }

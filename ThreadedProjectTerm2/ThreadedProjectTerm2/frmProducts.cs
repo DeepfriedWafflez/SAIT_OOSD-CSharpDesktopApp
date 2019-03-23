@@ -14,11 +14,11 @@ namespace ThreadedProjectTerm2
 {
     public partial class frmProducts : Form
     {
-        public frmMain activeFrmMain;
-        List<Product> productsList;
-        List<Supplier> supplierList;
+        public frmMain activeFrmMain;  
+        List<Product> productsList;    //list of all products
+        List<Supplier> supplierList;  //list of all suppliers
         List<ProductSupplier> productSupplierList;  //list of productSupplier items for a given product
-        Product currentProduct;
+        Product currentProduct;        //current product being modified
 
         public frmProducts()
         {
@@ -114,6 +114,7 @@ namespace ThreadedProjectTerm2
         {
             grpProductAddEdit.Visible = true;
             grpProductButtons.Enabled = false;
+            grpProdSupplier.Enabled = false;
             btnProductAdd.Visible = true;
             btnProductSave.Visible = false;
             txtProdAddEdit.SelectAll();
@@ -266,6 +267,17 @@ namespace ThreadedProjectTerm2
             grpProdSupplierAdd.Visible = true;
             grpProdSupplier.Enabled = false;
             grpProductButtons.Enabled = false;
+
+
+            var suppliersWithoutProductList = supplierList.Where(item => !productSupplierList.Any(item2 => item2.SupplierId == item.SupID));
+
+            //query the supplier list to order by supplier name
+            var suppliersWithoutProductListOrdered = (from supItems in suppliersWithoutProductList
+                                                     orderby supItems.SupName
+                                                     select supItems).ToArray();
+
+            cboProductSupplierAdd.DataSource = suppliersWithoutProductListOrdered;
+
         }
 
 
@@ -280,16 +292,80 @@ namespace ThreadedProjectTerm2
         //save new product-supplier into database
         private void btnProdSupplierSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Save function not added yet");
+
+
+            if (cboProductSupplierAdd.SelectedValue != null)
+            {
+                ProductSupplier ps = new ProductSupplier
+                {
+                    ProductId = currentProduct.ProductId,
+                    SupplierId = Convert.ToInt32(cboProductSupplierAdd.SelectedValue)
+                };
+
+                int addedProdSupplierId = ProductSupplierDB.AddProductSupplier(ps);
+
+                if (addedProdSupplierId != 0)
+                {
+                    //refresh suppliers part of form
+                    SetUpFrmControls();
+                    LoadProductSuppliers(currentProduct.ProductId);
+                }
+                else
+                {
+                    MessageBox.Show("A problem occured adding this item to the database.  Please try again.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a supplier from the drop-down list to add.", "Data entry error");
+            }
         }
 
         //delete product supplier item from database
         private void btnProdSupplierDelete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Save function not added yet");
+            ListView.SelectedListViewItemCollection psSelectedItems =
+                    this.lvProdSuppliers.SelectedItems;
+
+            //confirm that only one item is selected
+            if (psSelectedItems.Count != 0)
+            {
+                //get selected product-supplier id
+  
+                int selectedProductSupplier = Convert.ToInt32(psSelectedItems[0].SubItems[0].Text);
+
+                ProductSupplier ps = ProductSupplierDB.getProductSupplierById(selectedProductSupplier);
+
+                if (ps != null)  //Product-Supplier exists
+                {
+
+                    // !!!!!!!!! TO BE ADDED - CHECK FOR PACKAGES ASSOCIATED WITH Product-Supplier item
+                    // To be added once Birju has committed classes for Packages-Products-Suppliers
+
+                    if (ProductSupplierDB.DeleteProductSupplier(ps))
+                    {
+                        MessageBox.Show("Supplier removed from this product.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("A problem occurred with removing this supplier.");
+                    }
+                } 
+                else
+                {
+                    //ProductSupplier item does not exist in database - concurrency issue
+                    MessageBox.Show("Supplier has already been removed from this product");
+
+                }
+
+                LoadProductSuppliers(currentProduct.ProductId);
+                SetUpFrmControls();
+            }
+            else
+            {
+                MessageBox.Show("Please select a supplier to delete.");
+            }
         }
-
-
     }
 
 

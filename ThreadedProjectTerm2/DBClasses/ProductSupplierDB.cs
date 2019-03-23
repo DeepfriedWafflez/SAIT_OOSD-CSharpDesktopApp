@@ -185,6 +185,8 @@ namespace DBClasses
 
                 if (dr.Read())
                 {
+                    ps = new ProductSupplier();
+
                     ps.ProductSupplierId = Convert.ToInt32(dr["ProductSupplierId"]);
                     ps.ProductId = Convert.ToInt32(dr["ProductId"]);
                     ps.SupplierId = Convert.ToInt32(dr["SupplierId"]);
@@ -213,7 +215,7 @@ namespace DBClasses
 
             //create SQL statement
             string strSqlInsert = "INSERT INTO Products_Suppliers(ProductId, SupplierId)" +
-                                        "VALUES(@Product, @SupplierId)";
+                                        "VALUES(@ProductId, @SupplierId)";
 
             //create sql command and populate parameters
             SqlCommand cmd = new SqlCommand(strSqlInsert, con);
@@ -296,7 +298,7 @@ namespace DBClasses
 
             SqlConnection con = TravelExpertsDBConn.getDbConnection();
 
-            string strSqlUpdate = "DELETE FROM ProductSuppliers " +
+            string strSqlUpdate = "DELETE FROM Products_Suppliers " +
                                   "WHERE ProductSupplierId = @ProductSupplierId " +  //customer Id Identifies record to update
                                         "AND ProductId = @ProductId " +
                                         "AND SupplierId = @SupplierId";
