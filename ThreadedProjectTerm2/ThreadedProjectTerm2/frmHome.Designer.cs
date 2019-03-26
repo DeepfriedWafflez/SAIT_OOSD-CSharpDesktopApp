@@ -35,22 +35,23 @@
             // 
             // bgHolder
             // 
-            this.bgHolder.Location = new System.Drawing.Point(12, 12);
+            this.bgHolder.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bgHolder.Location = new System.Drawing.Point(0, 0);
             this.bgHolder.Name = "bgHolder";
-            this.bgHolder.Size = new System.Drawing.Size(831, 490);
+            this.bgHolder.Size = new System.Drawing.Size(550, 338);
             this.bgHolder.TabIndex = 0;
+            this.bgHolder.Paint += new System.Windows.Forms.PaintEventHandler(this.bgHolder_Paint);
             // 
             // bgTimer
             // 
             this.bgTimer.Enabled = true;
-            this.bgTimer.Interval = 10;
             this.bgTimer.Tick += new System.EventHandler(this.bgTimer_Tick);
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 514);
+            this.ClientSize = new System.Drawing.Size(549, 337);
             this.Controls.Add(this.bgHolder);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmHome";
