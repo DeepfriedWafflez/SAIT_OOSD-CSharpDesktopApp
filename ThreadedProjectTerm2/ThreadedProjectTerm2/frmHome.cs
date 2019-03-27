@@ -17,8 +17,8 @@ namespace ThreadedProjectTerm2
             if (this == activeFrmMain.activeFrmHome)
                 activeFrmMain.activeFrmPackages = null;
         }
-        
-        //scrolling background -- Made By: Brent Ward
+
+        //scrolling background
         private int bg_x = 0;
         private int bg_y = 0;
 
@@ -44,10 +44,10 @@ namespace ThreadedProjectTerm2
         {
             bgHolder.Invalidate();//forces repaint
 
-            if(bg_x >= bgWidth)
+            if(bg_x == bgWidth)
             {
                 bg_x = 0;
-            }else { bg_x += 1; }
+            }else { bg_x += 4; }
         }
 
         private void bgHolder_Paint(object sender, PaintEventArgs e)
