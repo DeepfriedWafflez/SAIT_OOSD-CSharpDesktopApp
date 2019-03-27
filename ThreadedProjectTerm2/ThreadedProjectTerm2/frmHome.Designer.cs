@@ -40,7 +40,6 @@
             // 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
             this.bgHolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.bgHolder.Controls.Add(this.BG_Box);
             this.bgHolder.Location = new System.Drawing.Point(0, 0);
@@ -61,12 +60,6 @@
             this.BG_Box.TabStop = false;
             this.BG_Box.Paint += new System.Windows.Forms.PaintEventHandler(this.BG_Box_Paint);
 =======
->>>>>>> parent of 7399323... scrolling background -Partly complete
-=======
-            this.bgHolder.Location = new System.Drawing.Point(12, 12);
-            this.bgHolder.Name = "bgHolder";
-            this.bgHolder.Size = new System.Drawing.Size(831, 490);
-            this.bgHolder.TabIndex = 0;
 >>>>>>> parent of 7399323... scrolling background -Partly complete
 =======
             this.bgHolder.Location = new System.Drawing.Point(12, 12);
