@@ -33,7 +33,7 @@ namespace ThreadedProjectTerm2
         {
             bgHolder.Width = x;
             bgHolder.Height = y;
-            bg = Image.FromFile(@"..\..\img\Sky-Background.jpeg");
+            bg = Image.FromFile(@"..\..\img\clouds.jpg");
             
             bgWidth = bg.Width;
             bgHeight = bg.Height;
