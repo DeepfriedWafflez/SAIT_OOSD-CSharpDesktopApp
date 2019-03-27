@@ -156,7 +156,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\clouds.jpg" />
     <Content Include="img\Sky-Background.jpeg" />
   </ItemGroup>
   <ItemGroup>
