@@ -33,6 +33,8 @@
             System.Windows.Forms.Label supNameLabel;
             this.supplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.supplierDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ClearButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
@@ -40,8 +42,6 @@
             this.supIDTextBox = new System.Windows.Forms.TextBox();
             this.supNameTextBox = new System.Windows.Forms.TextBox();
             this.HeaderLabel = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTipTable = new System.Windows.Forms.ToolTip(this.components);
             supIDLabel = new System.Windows.Forms.Label();
             supNameLabel = new System.Windows.Forms.Label();
@@ -82,12 +82,30 @@
             this.supplierDataGridView.DataSource = this.supplierBindingSource;
             this.supplierDataGridView.Location = new System.Drawing.Point(35, 145);
             this.supplierDataGridView.Name = "supplierDataGridView";
+            this.supplierDataGridView.ReadOnly = true;
             this.supplierDataGridView.Size = new System.Drawing.Size(501, 199);
             this.supplierDataGridView.TabIndex = 1;
             this.supplierDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.supplierDataGridView_CellClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "SupID";
+            this.dataGridViewTextBoxColumn1.FillWeight = 90F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Supplier ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "SupName";
+            this.dataGridViewTextBoxColumn2.FillWeight = 80F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Supplier Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.ClearButton);
             this.panel1.Controls.Add(this.DeleteButton);
             this.panel1.Controls.Add(this.AddButton);
@@ -97,7 +115,6 @@
             this.panel1.Controls.Add(this.supNameTextBox);
             this.panel1.Controls.Add(this.HeaderLabel);
             this.panel1.Controls.Add(this.supplierDataGridView);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(575, 372);
@@ -157,22 +174,6 @@
             this.HeaderLabel.Size = new System.Drawing.Size(198, 13);
             this.HeaderLabel.TabIndex = 2;
             this.HeaderLabel.Text = "Suppliers:       Click on a Cell to Modify it.";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "SupID";
-            this.dataGridViewTextBoxColumn1.FillWeight = 90F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Supplier ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "SupName";
-            this.dataGridViewTextBoxColumn2.FillWeight = 80F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Supplier Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // frmSuppliers
             // 

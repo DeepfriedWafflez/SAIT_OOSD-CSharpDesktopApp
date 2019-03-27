@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agency.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Product.cs" />

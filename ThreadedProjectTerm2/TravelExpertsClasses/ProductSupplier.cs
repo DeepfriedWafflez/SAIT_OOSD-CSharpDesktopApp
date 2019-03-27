@@ -15,29 +15,29 @@ namespace TravelExpertsClasses
     {
 
         //properties
-        public int ProductSupplierID { get; set; }
+        public int ProductSupplierId { get; set; }
 
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
-        public int SupplierID { get; set; }
+        public int SupplierId { get; set; }
 
         //constructor
         public ProductSupplier() { }
 
         public ProductSupplier(int i, int p, int s)
         {
-            ProductSupplierID = i;
-            ProductID = p;
-            SupplierID = s;
+            ProductSupplierId = i;
+            ProductId = p;
+            SupplierId = s;
 
         }
 
         //methods
         public override string ToString()
         {
-            return "ProductSupplier ID: " + ProductSupplierID + "\n" +
-                   "Product ID: " + ProductID + "\n" +
-                   "Product ID: " + SupplierID;
+            return "ProductSupplier ID: " + ProductSupplierId + "\n" +
+                   "Product ID: " + ProductId + "\n" +
+                   "Product ID: " + SupplierId;
         }
 
     }
