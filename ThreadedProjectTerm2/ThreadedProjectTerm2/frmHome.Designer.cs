@@ -29,61 +29,37 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.bgHolder = new System.Windows.Forms.Panel();
             this.bgTimer = new System.Windows.Forms.Timer(this.components);
-            this.loginPanel = new System.Windows.Forms.Panel();
-            this.mainPanel = new System.Windows.Forms.Panel();
+            this.bgHolder = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.loginPB = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.bgHolder.SuspendLayout();
-            this.loginPanel.SuspendLayout();
+            this.loginPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.bgHolder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginPB)).BeginInit();
+            this.loginPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // bgHolder
-            // 
-            this.bgHolder.Controls.Add(this.label5);
-            this.bgHolder.Controls.Add(this.label4);
-            this.bgHolder.Controls.Add(this.mainPanel);
-            this.bgHolder.Controls.Add(this.loginPanel);
-            this.bgHolder.Location = new System.Drawing.Point(0, 0);
-            this.bgHolder.Name = "bgHolder";
-            this.bgHolder.Size = new System.Drawing.Size(1333, 660);
-            this.bgHolder.TabIndex = 0;
-            this.bgHolder.Paint += new System.Windows.Forms.PaintEventHandler(this.bgHolder_Paint);
             // 
             // bgTimer
             // 
             this.bgTimer.Enabled = true;
             this.bgTimer.Tick += new System.EventHandler(this.bgTimer_Tick);
             // 
-            // loginPanel
+            // bgHolder
             // 
-            this.loginPanel.Controls.Add(this.loginPB);
-            this.loginPanel.Controls.Add(this.textBox2);
-            this.loginPanel.Controls.Add(this.label3);
-            this.loginPanel.Controls.Add(this.textBox1);
-            this.loginPanel.Controls.Add(this.label2);
-            this.loginPanel.Controls.Add(this.label1);
-            this.loginPanel.Controls.Add(this.button1);
-            this.loginPanel.Location = new System.Drawing.Point(955, 21);
-            this.loginPanel.Name = "loginPanel";
-            this.loginPanel.Size = new System.Drawing.Size(355, 409);
-            this.loginPanel.TabIndex = 0;
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.Location = new System.Drawing.Point(56, 21);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(846, 606);
-            this.mainPanel.TabIndex = 1;
+            this.bgHolder.BackColor = System.Drawing.Color.Transparent;
+            this.bgHolder.Location = new System.Drawing.Point(0, 0);
+            this.bgHolder.Name = "bgHolder";
+            this.bgHolder.Size = new System.Drawing.Size(1333, 659);
+            this.bgHolder.TabIndex = 0;
+            this.bgHolder.TabStop = false;
+            this.bgHolder.Paint += new System.Windows.Forms.PaintEventHandler(this.bgHolder_Paint);
             // 
             // button1
             // 
@@ -127,15 +103,6 @@
             this.textBox1.Size = new System.Drawing.Size(171, 25);
             this.textBox1.TabIndex = 3;
             // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(123, 299);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(171, 25);
-            this.textBox2.TabIndex = 5;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -148,6 +115,15 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Password:";
             // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Arial Narrow", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(123, 299);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
+            this.textBox2.Size = new System.Drawing.Size(171, 25);
+            this.textBox2.TabIndex = 5;
+            // 
             // loginPB
             // 
             this.loginPB.BackColor = System.Drawing.Color.Transparent;
@@ -157,65 +133,64 @@
             this.loginPB.TabIndex = 6;
             this.loginPB.TabStop = false;
             // 
-            // label4
+            // loginPanel
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Arial", 8F);
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(12, 639);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 14);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "© Travel Experts 2019";
+            this.loginPanel.BackColor = System.Drawing.Color.Transparent;
+            this.loginPanel.Controls.Add(this.loginPB);
+            this.loginPanel.Controls.Add(this.textBox2);
+            this.loginPanel.Controls.Add(this.label3);
+            this.loginPanel.Controls.Add(this.textBox1);
+            this.loginPanel.Controls.Add(this.label2);
+            this.loginPanel.Controls.Add(this.label1);
+            this.loginPanel.Controls.Add(this.button1);
+            this.loginPanel.Location = new System.Drawing.Point(20, 72);
+            this.loginPanel.Name = "loginPanel";
+            this.loginPanel.Size = new System.Drawing.Size(355, 409);
+            this.loginPanel.TabIndex = 1;
             // 
-            // label5
+            // panel1
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Arial", 8F);
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(1154, 638);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(168, 14);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Threaded project Term 2 - Team 1";
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.loginPanel);
+            this.panel1.Location = new System.Drawing.Point(914, 27);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(399, 590);
+            this.panel1.TabIndex = 3;
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1334, 661);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.bgHolder);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmHome";
+            this.Opacity = 0.5D;
             this.Text = "frmHome";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmHome_FormClosed);
             this.Load += new System.EventHandler(this.frmHome_Load);
-            this.bgHolder.ResumeLayout(false);
-            this.bgHolder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bgHolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginPB)).EndInit();
             this.loginPanel.ResumeLayout(false);
             this.loginPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.loginPB)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel bgHolder;
         private System.Windows.Forms.Timer bgTimer;
-        private System.Windows.Forms.Panel loginPanel;
-        private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox bgHolder;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.PictureBox loginPB;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel loginPanel;
+        private System.Windows.Forms.Panel panel1;
     }
 }

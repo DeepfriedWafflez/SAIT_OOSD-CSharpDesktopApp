@@ -34,6 +34,7 @@ namespace ThreadedProjectTerm2
             bgHolder.Width = x;
             bgHolder.Height = y;
             bg = Image.FromFile(@"..\..\img\clouds.jpg");
+            bgHolder.Image = bg;
             
             bgWidth = bg.Width;
             bgHeight = bg.Height;
@@ -44,10 +45,25 @@ namespace ThreadedProjectTerm2
 
             bgTimer.Start();
 
+            //Panel & Form Styling
+            TransparentPanel mainPanel = new TransparentPanel();
+            mainPanel.Size = new System.Drawing.Size(717, 92);
+            mainPanel.BackColor = System.Drawing.Color.Transparent;
+            mainPanel.Location = new System.Drawing.Point(0, 0);
+            bgHolder.Controls.Add(mainPanel);
+            Label test = new Label();
+            test.Text = "TESTING";
+            mainPanel.Controls.Add(test);
+            mainPanel.BringToFront();
+            bgHolder.SendToBack();
 
-            //Form styling
-            loginPanel.BackColor = Color.FromArgb(160, 50, 50, 50);
-            mainPanel.BackColor = Color.FromArgb(160, 50, 50, 50);
+            //this.TransparencyKey = Color.Black;
+            //this.BackColor = Color.Black;
+
+            //panel1.BackColor = Color.FromArgb(0, 0, 0, 0);
+            //loginPanel.BackColor = Color.FromArgb(50, Color.Black);
+            // mainPanel.BackColor = Color.FromArgb(50, Color.Black);
+
 
             loginPB.ImageLocation = @"..\..\img\loginIcon.png";
             loginPB.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -57,15 +73,15 @@ namespace ThreadedProjectTerm2
         {
             bgHolder.Invalidate();//forces repaint
 
-            if(bg_x == 400)
+            if(bg_x == 1000)
             {
                 bg_x = 0;
-            }else { bg_x += 1; }
+            }else { bg_x += 2; }
         }
 
         private void bgHolder_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(bg, new Rectangle(0, 0, this.Width, this.Height), new Rectangle(bg_x, bg_y, this.Width, this.Height), GraphicsUnit.Pixel);
+            e.Graphics.DrawImage(bgHolder.Image, new Rectangle(0, 0, this.Width, this.Height), new Rectangle(bg_x, bg_y, this.Width, this.Height), GraphicsUnit.Pixel);
         }
     }
 }

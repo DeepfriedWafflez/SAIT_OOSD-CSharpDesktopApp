@@ -99,6 +99,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Validator.cs" />
     <EmbeddedResource Include="frmAgents.resx">
       <DependentUpon>frmAgents.cs</DependentUpon>
@@ -126,6 +129,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\DataSources\TravelExpertsClasses.Agency.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.Agent.datasource" />
@@ -156,6 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="img\clouds.jpg" />
     <Content Include="img\LoginIcon.png" />
     <Content Include="img\Sky-Background.jpeg" />
     <Content Include="img\TravelExperts-Icon.ico" />
