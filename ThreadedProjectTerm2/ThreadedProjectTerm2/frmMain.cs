@@ -37,6 +37,11 @@ namespace ThreadedProjectTerm2
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
+            int x = Screen.PrimaryScreen.WorkingArea.Width;
+            int y = Screen.PrimaryScreen.WorkingArea.Height;
+
+            this.MinimumSize = new System.Drawing.Size(x, y);
         }
 
         private void btnHome_Click(object sender, EventArgs e)
