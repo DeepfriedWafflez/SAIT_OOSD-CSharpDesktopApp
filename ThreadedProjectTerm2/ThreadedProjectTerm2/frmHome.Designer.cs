@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.bgHolder = new System.Windows.Forms.Panel();
             this.BG_Box = new System.Windows.Forms.PictureBox();
+            this.bgTimer = new System.Windows.Forms.Timer(this.components);
             this.bgHolder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BG_Box)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +52,12 @@
             this.BG_Box.Size = new System.Drawing.Size(544, 332);
             this.BG_Box.TabIndex = 0;
             this.BG_Box.TabStop = false;
+            this.BG_Box.Paint += new System.Windows.Forms.PaintEventHandler(this.BG_Box_Paint);
+            // 
+            // bgTimer
+            // 
+            this.bgTimer.Enabled = true;
+            this.bgTimer.Tick += new System.EventHandler(this.bgTimer_Tick);
             // 
             // frmHome
             // 
@@ -72,5 +80,6 @@
 
         private System.Windows.Forms.Panel bgHolder;
         private System.Windows.Forms.PictureBox BG_Box;
+        private System.Windows.Forms.Timer bgTimer;
     }
 }
