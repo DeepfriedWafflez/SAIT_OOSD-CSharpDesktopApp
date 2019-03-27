@@ -28,24 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.bgHolder = new System.Windows.Forms.Panel();
-            this.bgTimer = new System.Windows.Forms.Timer(this.components);
+            this.BG_Box = new System.Windows.Forms.PictureBox();
+            this.bgHolder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BG_Box)).BeginInit();
             this.SuspendLayout();
             // 
             // bgHolder
             // 
             this.bgHolder.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bgHolder.Controls.Add(this.BG_Box);
             this.bgHolder.Location = new System.Drawing.Point(0, 0);
             this.bgHolder.Name = "bgHolder";
             this.bgHolder.Size = new System.Drawing.Size(550, 338);
             this.bgHolder.TabIndex = 0;
-            this.bgHolder.Paint += new System.Windows.Forms.PaintEventHandler(this.bgHolder_Paint);
             // 
-            // bgTimer
+            // BG_Box
             // 
-            this.bgTimer.Enabled = true;
-            this.bgTimer.Tick += new System.EventHandler(this.bgTimer_Tick);
+            this.BG_Box.Location = new System.Drawing.Point(3, 3);
+            this.BG_Box.Name = "BG_Box";
+            this.BG_Box.Size = new System.Drawing.Size(544, 332);
+            this.BG_Box.TabIndex = 0;
+            this.BG_Box.TabStop = false;
             // 
             // frmHome
             // 
@@ -58,6 +62,8 @@
             this.Text = "frmHome";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmHome_FormClosed);
             this.Load += new System.EventHandler(this.frmHome_Load);
+            this.bgHolder.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BG_Box)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -65,6 +71,6 @@
         #endregion
 
         private System.Windows.Forms.Panel bgHolder;
-        private System.Windows.Forms.Timer bgTimer;
+        private System.Windows.Forms.PictureBox BG_Box;
     }
 }

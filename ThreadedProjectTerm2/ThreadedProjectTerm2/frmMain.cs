@@ -33,10 +33,22 @@ namespace ThreadedProjectTerm2
         public frmProducts activeFrmProducts = null;
         public frmSuppliers activeFrmSuppliers = null;
         public frmAgents activeFrmAgents= null;
+
+        //form size variables
+        int formMinWidth = 0;
+        int formMinHeight = 0;
+
         public frmMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
+            //grabs screen size
+            formMinHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            formMinWidth = Screen.PrimaryScreen.WorkingArea.Width;
+
+            //sets the window to not allow minimize
+            this.MinimumSize = new System.Drawing.Size(formMinWidth, formMinHeight);
         }
 
         private void btnHome_Click(object sender, EventArgs e)
