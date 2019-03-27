@@ -21,10 +21,13 @@ namespace ThreadedProjectTerm2
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         //scrolling background -- Made By: Brent Ward
         int x = Screen.PrimaryScreen.WorkingArea.Width;
         int y = Screen.PrimaryScreen.WorkingArea.Height;
 =======
+=======
+>>>>>>> parent of 7399323... scrolling background -Partly complete
 =======
 >>>>>>> parent of 7399323... scrolling background -Partly complete
         //scrolling background
@@ -56,7 +59,10 @@ namespace ThreadedProjectTerm2
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 7399323... scrolling background -Partly complete
 =======
 >>>>>>> parent of 7399323... scrolling background -Partly complete
             if(bg_x == bgWidth)
@@ -64,6 +70,9 @@ namespace ThreadedProjectTerm2
                 bg_x = 0;
             }else { bg_x += 4; }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 7399323... scrolling background -Partly complete
+=======
 >>>>>>> parent of 7399323... scrolling background -Partly complete
 =======
 >>>>>>> parent of 7399323... scrolling background -Partly complete
