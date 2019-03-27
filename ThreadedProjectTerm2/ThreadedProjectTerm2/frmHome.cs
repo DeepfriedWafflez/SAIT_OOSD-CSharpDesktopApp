@@ -19,15 +19,9 @@ namespace ThreadedProjectTerm2
                 activeFrmMain.activeFrmPackages = null;
         }
 
-<<<<<<< HEAD
         //scrolling background -- Made By: Brent Ward
         int x = Screen.PrimaryScreen.WorkingArea.Width;
         int y = Screen.PrimaryScreen.WorkingArea.Height;
-=======
-        //scrolling background
-        private int bg_x = 0;
-        private int bg_y = 0;
->>>>>>> parent of 7399323... scrolling background -Partly complete
 
         Image bg;
         int bg_x = 0;
@@ -51,13 +45,6 @@ namespace ThreadedProjectTerm2
         {
             e.Graphics.DrawImage(bg, new Rectangle(0, 0, this.Width, this.Height), new Rectangle(x, y, this.Width, this.Height), GraphicsUnit.Pixel);
 
-<<<<<<< HEAD
-=======
-            if(bg_x == bgWidth)
-            {
-                bg_x = 0;
-            }else { bg_x += 4; }
->>>>>>> parent of 7399323... scrolling background -Partly complete
         }
 
         private void bgTimer_Tick(object sender, EventArgs e)
