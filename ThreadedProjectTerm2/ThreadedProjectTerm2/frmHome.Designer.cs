@@ -38,12 +38,17 @@
             // 
             // bgHolder
             // 
+<<<<<<< HEAD
             this.bgHolder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.bgHolder.Controls.Add(this.BG_Box);
             this.bgHolder.Location = new System.Drawing.Point(0, 0);
+=======
+            this.bgHolder.Location = new System.Drawing.Point(12, 12);
+>>>>>>> parent of 7399323... scrolling background -Partly complete
             this.bgHolder.Name = "bgHolder";
-            this.bgHolder.Size = new System.Drawing.Size(550, 338);
+            this.bgHolder.Size = new System.Drawing.Size(831, 490);
             this.bgHolder.TabIndex = 0;
+<<<<<<< HEAD
             // 
             // BG_Box
             // 
@@ -53,17 +58,20 @@
             this.BG_Box.TabIndex = 0;
             this.BG_Box.TabStop = false;
             this.BG_Box.Paint += new System.Windows.Forms.PaintEventHandler(this.BG_Box_Paint);
+=======
+>>>>>>> parent of 7399323... scrolling background -Partly complete
             // 
             // bgTimer
             // 
             this.bgTimer.Enabled = true;
+            this.bgTimer.Interval = 10;
             this.bgTimer.Tick += new System.EventHandler(this.bgTimer_Tick);
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 337);
+            this.ClientSize = new System.Drawing.Size(855, 514);
             this.Controls.Add(this.bgHolder);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmHome";
