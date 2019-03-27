@@ -39,6 +39,7 @@
             this.bgHolder.Name = "bgHolder";
             this.bgHolder.Size = new System.Drawing.Size(831, 490);
             this.bgHolder.TabIndex = 0;
+            this.bgHolder.Paint += new System.Windows.Forms.PaintEventHandler(this.bgHolder_Paint);
             // 
             // bgTimer
             // 
