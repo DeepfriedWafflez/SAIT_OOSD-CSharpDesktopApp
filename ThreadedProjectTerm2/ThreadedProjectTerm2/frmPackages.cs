@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,8 @@ namespace ThreadedProjectTerm2
     {
         public frmMain activeFrmMain;
         List<Package> packages = new List<Package>();
-        Package pkg = null;
+        Package package;
+      
 
         public frmPackages()
         {
@@ -31,67 +33,47 @@ namespace ThreadedProjectTerm2
 
         private void frmPackages_Load(object sender, EventArgs e)
         {
-            packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-            packageDataGridView.DataSource = packages; //binding the list of packages to Grid
+            try
+            {
+                packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
+                packageDataGridView.DataSource = packages;//binding the list of packages to Grid
+               
+                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error occured while loading page", "Connection Error");
+            }
+           
         }
 
-        /// <summary>
-        /// Clicking on Row within the grid, populates the data in the controls places on the form from the Grid.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void packageDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             if (packageDataGridView.SelectedRows.Count > 0) //execute block code if rows exists in the grid
             {
-                var package = (Package)packageDataGridView.SelectedRows[0].DataBoundItem; //selectedrows[0] gets the row selected by user, 
-                //typecast it in Package type & assign it to variable, now accesss properties of Package thru package variable
+                package = (Package)packageDataGridView.SelectedRows[0].DataBoundItem; //selectedrows[0] gets the row selected by user, 
+                //typecast it in Package type & assign it to reference variable, now accesss properties of Package thru package variable
                 //assigns values to controls of the from from corresponding Gridview.
-                this.txtPackageId.Text = package.PackageId.ToString(); 
+                this.txtPackageId.Text = package.PackageId.ToString();
                 txtPkgName.Text = package.PkgName;
                 pkrPkgStartDate.Text = package.PkgStartDate.ToString();
                 pkrPkgEndDate.Text = package.PkgEndDate.ToString();
-                txtPkgDesc.Text = package.PkgDesc.ToString();
                 txtPkgBasePrice.Text = package.PkgBasePrice.ToString();
-                txtPkgAgencyCom.Text = package.PkgAgencyCommission.ToString();
-
-            }
-        }
-        
-        private void btnDeletePkg_Click(object sender, EventArgs e)
-        {
-            Package pkgObj = new Package();
-            pkgObj.PackageId = Convert.ToInt32(txtPackageId.Text);
-            PutPackageData(pkgObj);
-            
-            int result = 0;
-            try
-            {
-                var packageNames = PackageDB.CheckBeforeDelete();
-                if(packageNames.Count != 0)
+                if (package.PkgDesc == null)
                 {
-                     MessageBox.Show("Can't Delete Package. Please delete dependent tables first");
+                    txtPkgDesc.Text = "";
                 }
-                else
+                else txtPkgDesc.Text = package.PkgDesc.ToString();
+
+               
+                if (package.PkgAgencyCommission == null)
                 {
-                    int pkgId = Convert.ToInt32(txtPackageId.Text);
-                    bool success = PackageDB.PackageDelete(pkgObj);
-                    if (success)
-                    {
-                        MessageBox.Show("Package deleted successfully");
-                      
-                    }
+                    txtPkgAgencyCom.Text = "";
                 }
+                else 
+                    txtPkgAgencyCom.Text = package.PkgAgencyCommission.ToString();
 
-                packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-                packageDataGridView.DataSource = packages; //binding the list of packages to Grid
             }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
-            }
-
         }
 
         /// <summary>
@@ -100,38 +82,41 @@ namespace ThreadedProjectTerm2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAddPkg_Click(object sender, EventArgs e)
+        private void btnAddPkg_Click_1(object sender, EventArgs e)
         {
 
             Package pkgObj = new Package();
-            if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)))
+
+            try
             {
-                this.PutPackageData(pkgObj); //calling putPackageData() to fill Package Object
-                foreach (char pkgName in pkgObj.PkgName)
+                if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice,"Base Price")))
                 {
-                    if(Convert.ToString(pkgName) == txtPkgName.Text)
+
+                    var pkg = packages.SingleOrDefault(pk => pk.PkgName.ToLower() == txtPkgName.Text.ToLower()); //packages is the list filled with all data from formload event defined on the top
+                    if (pkg == null)
                     {
-                        MessageBox.Show("Package Name already Exists");
-                    }
-                }
-           
-                    try
-                    {
+                        this.PutPackageData(pkgObj);
                         PackageDB.PackageAdd(pkgObj);
                         MessageBox.Show("Package Added Successfully");
+                        Refresh();
                         packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
                         packageDataGridView.DataSource = packages; //binding the list of packages to Grid
-
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message, ex.GetType().ToString());
+                        MessageBox.Show("Package Id: " + pkg.PackageId + "\nPackage Name: " + pkg.PkgName + " already Exsits");
+                        txtPkgName.Text = "";
+                        txtPkgName.SelectAll();
                     }
 
+                }
+                else MessageBox.Show("Package Name & Base Price have to entered");
             }
-            else
-                MessageBox.Show("Name & Base price of the package can't be empty");
 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured while adding record", "Connection Error");
+            }
         }
 
         /// <summary>
@@ -139,30 +124,111 @@ namespace ThreadedProjectTerm2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void btnUpdatePkg_Click(object sender, EventArgs e)
         {
-            Package pkgObj = new Package(); //Created new package object which is empty for now
-            pkgObj.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
-            this.PutPackageData(pkgObj); //calls the putpackagedata() method to populate rest of the properties
-            if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)))            
+            Package newPackage = new Package();//Created new package object which is empty for now
+            try
             {
-                try
+
+                if (txtPackageId.Text != "")
                 {
-                    bool success = PackageDB.PackageUpdate(pkgObj);
-                    MessageBox.Show("Package Updated Successfully");
+                    if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice, "Base Price")))
+                    {
+                        newPackage.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
+                        PutPackageData(newPackage);  //  calls the putpackagedata() method to populate rest of the properties
+
+                        bool success = PackageDB.PackageUpdate(package, newPackage);
+                        if (success)
+                        {
+                            MessageBox.Show("Package Updated Successfully");
+                            Refresh();
+                            packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
+                            packageDataGridView.DataSource = packages; //binding the list of packages to Grid
+                        }
+                    }
+                }
+                else MessageBox.Show("please select a record from the grid to update", "selection error");
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.GetType().ToString() + ex.Message);
+                //MessageBox.Show("Can't update the record now as it is beeing accessed by someone else", "Update Error");
+            }
+        }
+
+
+        /// <summary>
+        /// Clicking on Row within the grid, populates the data in the controls places on the form from the Grid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnDeletePkg_Click_1(object sender, EventArgs e)
+        {
+            Package pkgObj = new Package();
+            
+            try
+            {
+                if(txtPackageId.Text != "")
+                {
+                    pkgObj.PackageId = Convert.ToInt32(txtPackageId.Text);
+                    PutPackageData(pkgObj);
+                    //var packageNames = PackageDB.CheckBeforeDelete();
+                    //if (packageNames.Count != 0)
+                    //{
+                    //    MessageBox.Show("Can't Delete Package. Please delete dependent tables first");
+                    //}
+                    //else
+                    //{
+                       
+                        bool success = PackageDB.PackageDelete(pkgObj);
+                        if (success)
+                        {
+                            MessageBox.Show("Package deleted successfully");
+
+                        }
+                    //}
+                    Refresh();
                     packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
                     packageDataGridView.DataSource = packages; //binding the list of packages to Grid
                 }
-
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    MessageBox.Show("Please select the recprd to delete from the grid","Select Error");
                 }
+
             }
-            else
+
+            catch (Exception ex)
             {
-                MessageBox.Show("Name & Base Price of the Package have to be entered");
+                //MessageBox.Show(ex.GetType().ToString() + ex.Message);
+                MessageBox.Show("Can't delete the record now as it is beeing accessed by someone else", "Delete Error");
             }
+
+        }
+
+        /// <summary>
+        /// CLears out all text boxes inputs 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearPkgFields_Click_1(object sender, EventArgs e)
+        {
+            
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            txtPackageId.Text = "";
+            txtPkgName.Text = "";
+            txtPkgDesc.Text = "";
+            txtPkgBasePrice.Text = "";
+            txtPkgAgencyCom.Text = "";
         }
 
         /// <summary>
@@ -174,15 +240,23 @@ namespace ThreadedProjectTerm2
         {
             double number;
             package.PkgName = txtPkgName.Text;
-            package.PkgDesc = txtPkgDesc.Text;
             package.PkgBasePrice = double.Parse(txtPkgBasePrice.Text);
             package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
             package.PkgEndDate = DateTime.Parse(pkrPkgEndDate.Text);
-            if (double.TryParse(txtPkgAgencyCom.Text, out number))
+            if (txtPkgDesc.Text == "")
             {
-                package.PkgAgencyCommission = number;
+                package.PkgDesc = null;
             }
-           
+            else package.PkgDesc = txtPkgDesc.Text;
+
+
+            if (txtPkgAgencyCom.Text == "")
+            {
+                package.PkgAgencyCommission = null;
+            }
+            else
+                package.PkgAgencyCommission = Convert.ToDouble(txtPkgAgencyCom.Text);
+
         }
 
         //Event handler to make sure price fields can take only numbers from keyboard but can backspac
@@ -205,10 +279,7 @@ namespace ThreadedProjectTerm2
             }
         }
 
-      
-
-
-
+        
     }//class
 
 } //namespace

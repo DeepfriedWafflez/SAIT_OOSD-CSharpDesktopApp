@@ -133,6 +133,7 @@
     </Compile>
     <None Include="Properties\DataSources\TravelExpertsClasses.Agency.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.Agent.datasource" />
+    <None Include="Properties\DataSources\TravelExpertsClasses.Package1.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.Product.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.ProductSupplier.datasource" />
     <None Include="Properties\DataSources\TravelExpertsClasses.Supplier.datasource" />

@@ -15,5 +15,7 @@ namespace TravelExpertsClasses
         public string PkgDesc { get; set; } //allows null 
         public double PkgBasePrice { get; set; }
         public double? PkgAgencyCommission { get; set; } //allows null
+
+     
     }
 }
