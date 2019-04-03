@@ -120,6 +120,15 @@
   <metadata name="bgTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="mainLabelText.Text" xml:space="preserve">
+    <value>This Portal functions as a localized interface bound to the data base that aims at making your job fast, 
+easy, and hassle free. You are able to:
+
+      - Add, Edit, and Delete Agents
+      -Update your Suppliers information and the products they supply
+      -Add new,or retire old packages
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>

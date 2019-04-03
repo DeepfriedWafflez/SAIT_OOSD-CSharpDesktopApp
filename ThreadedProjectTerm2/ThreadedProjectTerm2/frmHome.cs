@@ -6,6 +6,11 @@ namespace ThreadedProjectTerm2
 {
     public partial class frmHome : Form
     {
+        /*
+         * Author: Brent Ward
+         * Date: March 22, 2019
+         * Purpose: Designs a homepage for the form when it loads
+         * */
         public frmMain activeFrmMain;
         public frmHome()
         {
@@ -29,6 +34,11 @@ namespace ThreadedProjectTerm2
         
         private Image bg;
 
+        //Panel constructors
+        TransparentPanel loginPanel;
+        TransparentPanel mainPanel;
+        TransparentPanel footerPanel;
+
         private void frmHome_Load(object sender, EventArgs e)
         {
             bgHolder.Width = x;
@@ -45,28 +55,53 @@ namespace ThreadedProjectTerm2
 
             bgTimer.Start();
 
-            //Panel & Form Styling
-            TransparentPanel mainPanel = new TransparentPanel();
-            mainPanel.Size = new System.Drawing.Size(717, 92);
+            /*Panel & Form Styling
+             * 
+             * Had Trouble with my transparent panels visually tearing,
+             * Pretty sure the issue comes from visual studio running on a low amount of
+             * memory but not sure how to change this from a code standpoint.
+             * */
+
+            //login transparent Panel
+            loginPanel = new TransparentPanel();
+            loginPanel.Size = new System.Drawing.Size(375, 220);
+            loginPanel.BackColor = System.Drawing.Color.Transparent;
+            loginPanel.Location = new System.Drawing.Point((x-400),25);
+            loginPanel.Controls.Add(AdminLabel);
+            loginPanel.Controls.Add(UsernameLabel);
+            loginPanel.Controls.Add(UsernameTxt);
+            loginPanel.Controls.Add(PasswordLabel);
+            loginPanel.Controls.Add(PasswordTxt);
+            loginPanel.Controls.Add(LoginBtn);
+            loginPanelTemp.Visible = false;//used to hold the controls to get their positioning set
+            loginPanelTemp.Enabled = false;
+            bgHolder.Controls.Add(loginPanel);
+
+            //main transparent Panel -- WAY toomuch tearing to display for presentation
+            /*
+            mainPanel = new TransparentPanel();
+            mainPanel.Size = new System.Drawing.Size(620, 200);
             mainPanel.BackColor = System.Drawing.Color.Transparent;
-            mainPanel.Location = new System.Drawing.Point(0, 0);
-            bgHolder.Controls.Add(mainPanel);
-            Label test = new Label();
-            test.Text = "TESTING";
-            mainPanel.Controls.Add(test);
-            mainPanel.BringToFront();
+            mainPanel.Location = new System.Drawing.Point(150, 245);
+            mainPanel.Controls.Add(mainPanelHeader);
+            mainPanel.Controls.Add(mainLabelText);
+            mainPanelTemp.Visible = false;
+            mainPanelTemp.Enabled = false;
+            bgHolder.Controls.Add(mainPanel);*/
+
+            //footer panel
+            footerPanel = new TransparentPanel();
+            footerPanel.Size = new System.Drawing.Size(400, 30);
+            footerPanel.BackColor = System.Drawing.Color.Transparent;
+            footerPanel.Location = new System.Drawing.Point((x/2-200), (y - 100));
+            CopyLabel.Location = new System.Drawing.Point(65, 5);
+            footerPanel.Controls.Add(CopyLabel);
+            bgHolder.Controls.Add(footerPanel);
+
             bgHolder.SendToBack();
 
-            //this.TransparencyKey = Color.Black;
-            //this.BackColor = Color.Black;
-
-            //panel1.BackColor = Color.FromArgb(0, 0, 0, 0);
-            //loginPanel.BackColor = Color.FromArgb(50, Color.Black);
-            // mainPanel.BackColor = Color.FromArgb(50, Color.Black);
-
-
-            loginPB.ImageLocation = @"..\..\img\loginIcon.png";
-            loginPB.SizeMode = PictureBoxSizeMode.StretchImage;
+            BannerPB.ImageLocation = @"..\..\img\banner.jpg";
+            BannerPB.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void bgTimer_Tick(object sender, EventArgs e)
@@ -76,7 +111,7 @@ namespace ThreadedProjectTerm2
             if(bg_x == 1000)
             {
                 bg_x = 0;
-            }else { bg_x += 2; }
+            }else { bg_x += 1; }
         }
 
         private void bgHolder_Paint(object sender, PaintEventArgs e)

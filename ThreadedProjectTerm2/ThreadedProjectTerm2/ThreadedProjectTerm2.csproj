@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\clouds.jpg" />
+    <Content Include="img\banner.jpg" />
     <Content Include="img\LoginIcon.png" />
     <Content Include="img\Sky-Background.jpeg" />
     <Content Include="img\TravelExperts-Icon.ico" />
