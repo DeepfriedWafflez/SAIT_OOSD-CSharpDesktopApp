@@ -92,7 +92,7 @@ namespace ThreadedProjectTerm2
                 if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice,"Base Price")))
                 {
 
-                    var pkg = packages.SingleOrDefault(pk => pk.PkgName.ToLower() == txtPkgName.Text.ToLower()); //packages is the list filled with all data from formload event defined on the top
+                    var pkg = packages.SingleOrDefault(pk => pk.PkgName.ToLower() == txtPkgName.Text.ToLower()); 
                     if (pkg == null)
                     {
                         this.PutPackageData(pkgObj);

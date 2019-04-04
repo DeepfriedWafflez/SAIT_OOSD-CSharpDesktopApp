@@ -208,11 +208,11 @@ namespace DBClasses
 
             string deleteStatement = "DELETE FROM Packages WHERE PackageId = @PackageId " +
                                     "AND PkgName = @PkgName " +
-                                    "AND (PkgDesc = @PkgDesc OR @PkgDesc is NULL AND PkgDesc is NULL) " +
-                                    "AND PkgStartDate = @PkgStartDate " +
+                                    "AND (PkgDesc = @PkgDesc  " +
+                                    "AND PkgStartDate = @PkgStartDate "+
                                     "AND PkgEndDate = @PkgEndDate " +
-                                    "AND PkgBasePrice = @PkgBasePrice " +
-                                    "AND (PkgAgencyCommission = @PkgAgencyCommission OR @PkgAgencyCommission is NULL AND PkgAgencyCommission is NULL)";
+                                    "AND PkgBasePrice = @PkgBasePrice "+
+                                    "AND (PkgAgencyCommission = @PkgAgencyCommission )";
             try
             {
 
@@ -236,7 +236,7 @@ namespace DBClasses
                         }
                         else cmd.Parameters.AddWithValue("@PkgEndDate", DBNull.Value);
 
-                        if (pkgObj.PkgDesc == null)
+                        if (String.IsNullOrEmpty(pkgObj.PkgDesc))
                         {
                             cmd.Parameters.AddWithValue("@PkgDesc", DBNull.Value);
                         }
