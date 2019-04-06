@@ -28,7 +28,7 @@ namespace ThreadedProjectTerm2
         protected override void OnPaint(PaintEventArgs e)
         {
             //base.OnPaint(e);
-            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50, 50)), this.ClientRectangle);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(150, 50, 50, 50)), this.ClientRectangle);
         }
     }
 }

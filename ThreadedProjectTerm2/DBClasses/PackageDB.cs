@@ -41,21 +41,61 @@ namespace DBClasses
                             packageObj.PkgEndDate = dr["PkgEndDate"] == DBNull.Value ? null : (DateTime?)dr["PkgEndDate"];
                             packageObj.PkgDesc = dr["PkgDesc"] == DBNull.Value ? null : (string)dr["PkgDesc"];
                             packageObj.PkgBasePrice = double.Parse(dr["PkgBasePrice"].ToString());
-                            packageObj.PkgAgencyCommission = dr["PkgAgencyCommission"] == DBNull.Value ? 0 : double.Parse(dr["PkgAgencyCommission"].ToString());
+
+                            packageObj.PkgAgencyCommission = dr["PkgAgencyCommission"] == DBNull.Value ? Convert.ToDouble(null) : double.Parse(dr["PkgAgencyCommission"].ToString());
                             packageList.Add(packageObj);        //adding package items into the list 
                         }
                     }
                     return packageList;                         //returns the list of package
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
         }
 
-       
+
+
+        //Display the related product in the product data grid on the Package form
+        public static List<Bookings> DisplayBookingsInGrid(int pkgId)
+        {
+            List<Bookings> bookingList = new List<Bookings>();
+            
+           string selectQuery = "select BookingNo,CustomerId,TripTypeId from bookings where PackageId IN (Select PackageId from packages WHERE PackageId=@pkgId) ";   //SQL query to get all fields from table
+
+            try
+            {
+
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                    {
+                        con.Open();//databse connection opens
+                        cmd.Parameters.AddWithValue("@pkgId", pkgId); //binding it with PkgId parameter which is passed on in an arguement
+                      
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            Bookings bkngObj = new Bookings();         //instantiating the object of the class Package      
+                            
+                            bkngObj.BookingNo = (string)dr["BookingNo"];
+                            bkngObj.CustomerId = (int)dr["CustomerId"];
+                            bkngObj.TripTypeId = (string)dr["TripTypeId"];
+                           
+                            bookingList.Add(bkngObj);        //adding package items into the list 
+                        }
+                    }
+                    return bookingList;                         //returns the list of product
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static void PackageAdd(Package pkgObj)
         {
             string insertStatement = "INSERT INTO Packages (PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
@@ -78,7 +118,7 @@ namespace DBClasses
                         }
                         else cmd.Parameters.AddWithValue("@PkgStartDate", DBNull.Value);
 
-                        if (pkgObj.PkgStartDate.HasValue)
+                        if (pkgObj.PkgEndDate.HasValue)
                         {
                             cmd.Parameters.AddWithValue("@PkgEndDate", pkgObj.PkgEndDate);
                         }
@@ -88,13 +128,13 @@ namespace DBClasses
                         {
                             cmd.Parameters.AddWithValue("@PkgDesc", pkgObj.PkgDesc);
                         }
-                        else cmd.Parameters.AddWithValue("@PkgDesc",DBNull.Value);
+                        else cmd.Parameters.AddWithValue("@PkgDesc","");
 
                         if (pkgObj.PkgAgencyCommission.HasValue)
                         {
                             cmd.Parameters.AddWithValue("@PkgAgencyCommission", pkgObj.PkgAgencyCommission);
                         }
-                        else cmd.Parameters.AddWithValue("@PkgAgencyCommission", DBNull.Value);
+                        else cmd.Parameters.AddWithValue("@PkgAgencyCommission", 0);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -105,6 +145,8 @@ namespace DBClasses
                 throw ex;
             }
         }
+
+        
 
         public static bool PackageUpdate(Package package,Package newPackage)
         {
@@ -149,13 +191,13 @@ namespace DBClasses
 
                         if (newPackage.PkgDesc == null)
                         {
-                            cmd.Parameters.AddWithValue("@newPkgDesc", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@newPkgDesc", "");
                         }
                         else cmd.Parameters.AddWithValue("@newPkgDesc", newPackage.PkgDesc);
 
                         if (newPackage.PkgAgencyCommission == null)
                         {
-                            cmd.Parameters.AddWithValue("@newPkgAgencyCommission", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@newPkgAgencyCommission", 0);
                         }
                         else 
                         cmd.Parameters.AddWithValue("@newPkgAgencyCommission", newPackage.PkgAgencyCommission);
@@ -177,7 +219,7 @@ namespace DBClasses
 
                         if (package.PkgDesc == null)
                         {
-                            cmd.Parameters.AddWithValue("@oldPkgDesc", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@oldPkgDesc", "");
                         }
                         else cmd.Parameters.AddWithValue("@oldPkgDesc",package.PkgDesc);
 
@@ -185,7 +227,7 @@ namespace DBClasses
                         {
                             cmd.Parameters.AddWithValue("@oldPkgAgencyCommission", package.PkgAgencyCommission);
                         }
-                        else cmd.Parameters.AddWithValue("@oldPkgAgencyCommission", DBNull.Value);
+                        else cmd.Parameters.AddWithValue("@oldPkgAgencyCommission", 0);
 
                         int rowsUpdated = cmd.ExecuteNonQuery();
                         if (rowsUpdated == 0) result = false; // did not update (another user updated or deleted)
@@ -208,11 +250,11 @@ namespace DBClasses
 
             string deleteStatement = "DELETE FROM Packages WHERE PackageId = @PackageId " +
                                     "AND PkgName = @PkgName " +
-                                    "AND (PkgDesc = @PkgDesc  " +
-                                    "AND PkgStartDate = @PkgStartDate "+
-                                    "AND PkgEndDate = @PkgEndDate " +
+                                    "AND (PkgDesc = @PkgDesc OR @PkgDesc is NULL AND PkgDesc is NULL)  " +
+                                    "AND (PkgStartDate = @PkgStartDate OR @PkgStartDate is NULL AND PkgStartDate is NULL) " +
+                                    "AND (PkgEndDate = @PkgEndDate OR @PkgEndDate is NULL AND PkgEndDate is NULL) " +
                                     "AND PkgBasePrice = @PkgBasePrice "+
-                                    "AND (PkgAgencyCommission = @PkgAgencyCommission )";
+                                    "AND (PkgAgencyCommission = @PkgAgencyCommission OR @PkgAgencyCommission is NULL AND PkgAgencyCommission is NULL)";
             try
             {
 
@@ -238,7 +280,7 @@ namespace DBClasses
 
                         if (String.IsNullOrEmpty(pkgObj.PkgDesc))
                         {
-                            cmd.Parameters.AddWithValue("@PkgDesc", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@PkgDesc", "");
                         }
                         else cmd.Parameters.AddWithValue("@PkgDesc", pkgObj.PkgDesc);
 
@@ -246,7 +288,7 @@ namespace DBClasses
                         {
                             cmd.Parameters.AddWithValue("@PkgAgencyCommission", pkgObj.PkgAgencyCommission);
                         }
-                        else cmd.Parameters.AddWithValue("@PkgAgencyCommission", DBNull.Value);
+                        else cmd.Parameters.AddWithValue("@PkgAgencyCommission", 0);
 
                          
 
@@ -262,35 +304,35 @@ namespace DBClasses
                 throw ex;
             }
         }
-            
-        
-        //public static List<string> CheckBeforeDelete()
-        //{
-        //    List<string> packageNames = new List<string>();
 
-        //    string query = "SELECT PackageId,PkgName from packages Where  EXISTS " +
-        //                    "(SELECT b.packageid, p.packageid from bookings b,Packages_Products_Suppliers p where b.packageid=p.packageid)";
-        //    try
-        //    {
-        //        using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
-        //        {
-        //            using (SqlCommand cmd = new SqlCommand(query, con))
-        //            {
-        //                con.Open();                             //databse connection opens
-        //                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
-        //                while (dr.Read())                       //below block of code executes till there is data in the table
-        //                {
-        //                    packageNames.Add(Convert.ToString(dr["PkgName"]));
-        //                }
-        //            }
-        //            return packageNames;                         //returns the list of package
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+
+        public static List<string> CheckBeforeDelete()
+        {
+            List<string> packageNames = new List<string>();
+
+            string query = "SELECT PackageId,PkgName from packages Where Not EXISTS " +
+                            "(SELECT b.packageid, p.packageid from bookings b,Packages_Products_Suppliers p where b.packageid=p.packageid)";
+            try
+            {
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();                             //databse connection opens
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            packageNames.Add(Convert.ToString(dr["PkgName"]));
+                        }
+                    }
+                    return packageNames;                         //returns the list of package
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 

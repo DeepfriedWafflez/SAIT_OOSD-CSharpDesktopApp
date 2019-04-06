@@ -25,9 +25,9 @@ namespace ThreadedProjectTerm2
 
         public static bool isNonNegative(TextBox tb, string name)//checks the number is positive
         {
-            if(Convert.ToInt32(tb.Text) > 0)
+            if(Convert.ToDouble(tb.Text) > 0)
             {
-                Convert.ToInt32(tb.Text);
+                Convert.ToDouble(tb.Text);
                 return true;
             }
             else

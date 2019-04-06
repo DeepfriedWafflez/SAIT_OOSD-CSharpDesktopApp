@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Agency.cs" />
     <Compile Include="Agent.cs" />
+    <Compile Include="Bookings.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductSupplier.cs" />

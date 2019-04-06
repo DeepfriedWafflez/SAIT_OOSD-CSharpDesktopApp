@@ -16,9 +16,10 @@ namespace ThreadedProjectTerm2
     public partial class frmPackages : Form
     {
         public frmMain activeFrmMain;
-        List<Package> packages = new List<Package>();
+        List<Package> packages;
         Package package;
-      
+        bool IsDateValid = true;
+
 
         public frmPackages()
         {
@@ -33,12 +34,16 @@ namespace ThreadedProjectTerm2
 
         private void frmPackages_Load(object sender, EventArgs e)
         {
-            try
+             try
             {
-                packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-                packageDataGridView.DataSource = packages;//binding the list of packages to Grid
-               
-                
+
+                // packageDataGridView.DataSource = PackageDB.DisplayPackagesInGrid();
+                packages = PackageDB.DisplayPackagesInGrid();
+                packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages
+                pkrPkgStartDate.Checked = false;
+                pkrPkgEndDate.Checked = false;
+
+
             }
             catch(Exception ex)
             {
@@ -46,7 +51,28 @@ namespace ThreadedProjectTerm2
             }
            
         }
+        //private void packageDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0)
+        //    {
+        //        DataGridViewRow row = packageDataGridView.Rows[e.RowIndex];
+        //        txtPackageId.Text = row.Cells[0].Value.ToString();
+        //        txtPkgName.Text = row.Cells[1].Value.ToString();
+        //        pkrPkgStartDate.Text = row.Cells[2].Value.ToString();
+        //        pkrPkgEndDate.Text = row.Cells[3].Value.ToString();
+        //        txtPkgDesc.Text = row.Cells[4].Value.ToString();
+        //        txtPkgBasePrice.Text = row.Cells[5].Value.ToString();
+        //        txtPkgAgencyCom.Text = row.Cells[6].Value.ToString();
 
+        //        List<Bookings> bookingList = new List<Bookings>();
+
+        //        int packageId = Convert.ToInt32(txtPackageId.Text);
+        //        bookingList = PackageDB.DisplayBookingsInGrid(packageId);
+        //        bookingsDataGridView.DataSource = bookingList;
+
+
+        //    }
+        //}
         private void packageDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             if (packageDataGridView.SelectedRows.Count > 0) //execute block code if rows exists in the grid
@@ -65,16 +91,29 @@ namespace ThreadedProjectTerm2
                 }
                 else txtPkgDesc.Text = package.PkgDesc.ToString();
 
-               
+
                 if (package.PkgAgencyCommission == null)
                 {
                     txtPkgAgencyCom.Text = "";
                 }
-                else 
+                else
                     txtPkgAgencyCom.Text = package.PkgAgencyCommission.ToString();
+
+                //popualting related product in product gridview
+
+                List<Bookings> bookingList = new List<Bookings>();
+
+                int packageId = Convert.ToInt32(txtPackageId.Text);
+                bookingList = PackageDB.DisplayBookingsInGrid(packageId);
+                bookingsDataGridView.DataSource = bookingList;
+
 
             }
         }
+
+
+
+
 
         /// <summary>
         /// Add Package method adds the package into the package table, PackageID textbox  on the form is disabled as it's auto-incremented
@@ -87,20 +126,38 @@ namespace ThreadedProjectTerm2
 
             Package pkgObj = new Package();
 
+         
             try
             {
-                if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice,"Base Price")))
+                if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice, "Base Price")))
                 {
 
-                    var pkg = packages.SingleOrDefault(pk => pk.PkgName.ToLower() == txtPkgName.Text.ToLower()); 
+                    var pkg = packages.SingleOrDefault(pk => pk.PkgName.ToLower() == txtPkgName.Text.ToLower());
                     if (pkg == null)
                     {
-                        this.PutPackageData(pkgObj);
-                        PackageDB.PackageAdd(pkgObj);
-                        MessageBox.Show("Package Added Successfully");
-                        Refresh();
-                        packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-                        packageDataGridView.DataSource = packages; //binding the list of packages to Grid
+
+                        if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
+                        {
+                           
+                            if (pkrPkgEndDate.Value.Date.CompareTo(pkrPkgStartDate.Value.Date) <= 0)
+                            {
+                                MessageBox.Show("Start Date should be less than End Date", "Date Selection Error", MessageBoxButtons.OK);
+
+
+
+                            }
+                            else
+                            {
+                                this.PutPackageData(pkgObj);
+
+                                PackageDB.PackageAdd(pkgObj);
+                                MessageBox.Show("Package Added Successfully");
+                                Refresh();
+                                // packageDataGridView.DataSource = PackageDB.DisplayPackagesInGrid();
+                                packages = PackageDB.DisplayPackagesInGrid();
+                                packageDataGridView.DataSource = packages; //packages is the list to hold the list of packagesckages
+                            }
+                        }
                     }
                     else
                     {
@@ -115,7 +172,7 @@ namespace ThreadedProjectTerm2
 
             catch (Exception ex)
             {
-                MessageBox.Show("Error occured while adding record", "Connection Error");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -134,16 +191,29 @@ namespace ThreadedProjectTerm2
                 {
                     if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice, "Base Price")))
                     {
-                        newPackage.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
-                        PutPackageData(newPackage);  //  calls the putpackagedata() method to populate rest of the properties
-
-                        bool success = PackageDB.PackageUpdate(package, newPackage);
-                        if (success)
+                        if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
                         {
-                            MessageBox.Show("Package Updated Successfully");
-                            Refresh();
-                            packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-                            packageDataGridView.DataSource = packages; //binding the list of packages to Grid
+
+                            if (pkrPkgEndDate.Value.Date.CompareTo(pkrPkgStartDate.Value.Date) <= 0)
+                            {
+                                MessageBox.Show("Start Date should be less than End Date", "Date Selection Error", MessageBoxButtons.OK);
+                            }
+                            else
+                            {
+                                newPackage.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
+                                PutPackageData(newPackage);  //  calls the putpackagedata() method to populate rest of the properties
+
+                                bool success = PackageDB.PackageUpdate(package, newPackage);
+                                if (success)
+                                {
+                                    MessageBox.Show("Package Updated Successfully");
+                                    Refresh();
+
+                                    packages = PackageDB.DisplayPackagesInGrid();
+                                    packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages
+
+                                }
+                            }
                         }
                     }
                 }
@@ -155,8 +225,8 @@ namespace ThreadedProjectTerm2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.GetType().ToString() + ex.Message);
-                //MessageBox.Show("Can't update the record now as it is beeing accessed by someone else", "Update Error");
+                //MessageBox.Show(ex.GetType().ToString() + ex.Message);
+                MessageBox.Show("Can't update the record now as it is beeing accessed by someone else", "Update Error");
             }
         }
 
@@ -177,24 +247,26 @@ namespace ThreadedProjectTerm2
                 {
                     pkgObj.PackageId = Convert.ToInt32(txtPackageId.Text);
                     PutPackageData(pkgObj);
-                    //var packageNames = PackageDB.CheckBeforeDelete();
-                    //if (packageNames.Count != 0)
-                    //{
-                    //    MessageBox.Show("Can't Delete Package. Please delete dependent tables first");
-                    //}
-                    //else
-                    //{
-                       
+                    var packageNames = PackageDB.CheckBeforeDelete();
+                    if (packageNames.Count != 0)
+                    {
+                        MessageBox.Show("Can't Delete Package. Please delete dependent tables first");
+                    }
+                    else
+                    {
+
                         bool success = PackageDB.PackageDelete(pkgObj);
                         if (success)
                         {
                             MessageBox.Show("Package deleted successfully");
 
                         }
-                    //}
+                    }
+                  
                     Refresh();
-                    packages = PackageDB.DisplayPackagesInGrid(); //packages is the list to hold the list of packages
-                    packageDataGridView.DataSource = packages; //binding the list of packages to Grid
+                 //   packageDataGridView.DataSource = PackageDB.DisplayPackagesInGrid();
+                    packages = PackageDB.DisplayPackagesInGrid();
+                    packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages                   
                 }
                 else
                 {
@@ -238,11 +310,32 @@ namespace ThreadedProjectTerm2
         /// <param name="package"></param>
         private void PutPackageData(Package package)
         {
+           
             double number;
             package.PkgName = txtPkgName.Text;
             package.PkgBasePrice = double.Parse(txtPkgBasePrice.Text);
-            package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
-            package.PkgEndDate = DateTime.Parse(pkrPkgEndDate.Text);
+
+
+            if (pkrPkgStartDate.Checked == false && pkrPkgEndDate.Checked == true)
+            {
+                MessageBox.Show("Can't have End Date without Start Date");
+            }
+            else if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == false)
+            {
+                package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
+                package.PkgEndDate = Convert.ToDateTime(null);
+            }
+            else if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
+            {
+                package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
+                package.PkgEndDate = DateTime.Parse(pkrPkgEndDate.Text);
+            }
+            else
+            {
+                package.PkgStartDate = Convert.ToDateTime(null);
+                package.PkgEndDate = Convert.ToDateTime(null);
+            }
+
             if (txtPkgDesc.Text == "")
             {
                 package.PkgDesc = null;
@@ -260,45 +353,29 @@ namespace ThreadedProjectTerm2
         }
 
         //Event handler to make sure price fields can take only numbers from keyboard but can backspac
-        private void txtPkgBasePrice_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
-            if (e.KeyChar == (char)13)
-            {
-                txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
-            }
-        }
+        //private void txtPkgBasePrice_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
+        //    if (e.KeyChar == (char)13)
+        //    {
+        //        txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
+        //    }
+        //}
 
-        private void txtPkgAgencyCom_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((!char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)8 && e.KeyChar != (char)46))
-                e.Handled = true;
-            if (e.KeyChar == (char)13)
-            {
-                txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
-            }
-        }
+        //private void txtPkgAgencyCom_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if ((!char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)8 && e.KeyChar != (char)46))
+        //        e.Handled = true;
+        //    if (e.KeyChar == (char)13)
+        //    {
+        //        txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
+        //    }
+        //}
 
-        
+       
     }//class
 
 } //namespace
 
 
 
-//private void packageDataGridView_CellContent_Click(object sender, EventArgs e)
-//{
-//    if (packageDataGridView.SelectedRows.Count > 0)
-//    {
-//        var package = (Package)packageDataGridView.SelectedRows[0].DataBoundItem;
-//        int packageId = package.PackageId;
-//        packageIdTextBox.Text = package.PackageId.ToString();
-//        pkgNameTextBox.Text = package.PkgName;
-//        pkgStartDateDateTimePicker.Text = package.PkgStartDate.ToString();
-//        pkgEndDateDateTimePicker.Text = package.PkgEndDate.ToString();
-//        pkgDescTextBox.Text = package.PkgDesc.ToString();
-//        pkgBasePriceTextBox.Text = package.PkgBasePrice.ToString();
-//        pkgAgencyCommissionTextBox.Text = package.PkgAgencyCommission.ToString();
-
-//    }
-//}
