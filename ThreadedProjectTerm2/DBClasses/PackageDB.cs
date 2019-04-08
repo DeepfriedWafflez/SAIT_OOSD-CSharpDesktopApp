@@ -21,7 +21,7 @@ namespace DBClasses
             List<Package> packageList = new List<Package>(); //crating empty list
             Package packageObj = null;                       //referencing package object
 
-            string selectQuery = "SELECT * FROM Packages";   //SQL query to get all fields from table
+            string selectQuery = "SELECT * FROM Packages ORDER BY PkgName ASC";   //SQL query to get all fields from table
 
             try
             {
@@ -53,12 +53,61 @@ namespace DBClasses
             {
                 throw ex;
             }
+        }
 
+        /// <summary>
+        /// SearchByText() method has the logic to search the package on the form by its name.
+        /// </summary>
+        /// <param name="searchText which is passed from the form and taken by SQL query as parameter "></param>
+        /// <returns>list of package matching the wildcard from the SQL query</returns>
+
+        public static List<Package> SearchByText(string searchText)
+        {
+            List<Package> packageList = new List<Package>(); //crating empty list
+            Package packageObj = null;                       //referencing package object
+            string selectQuery = "SELECT * FROM Packages where PkgName LIKE '%" + searchText + "%' ORDER BY PkgName ASC";   //SQL query to get all fields from table
+
+            try
+            {
+
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                    {
+                        con.Open();                             //databse connection opens
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            packageObj = new Package();         //instantiating the object of the class Package      
+                            packageObj.PackageId = (int)dr["PackageId"];
+                            packageObj.PkgName = (string)dr["PkgName"];
+                            packageObj.PkgStartDate = dr["PkgStartDate"] == DBNull.Value ? null : (DateTime?)dr["PkgStartDate"];
+                            packageObj.PkgEndDate = dr["PkgEndDate"] == DBNull.Value ? null : (DateTime?)dr["PkgEndDate"];
+                            packageObj.PkgDesc = dr["PkgDesc"] == DBNull.Value ? null : (string)dr["PkgDesc"];
+                            packageObj.PkgBasePrice = double.Parse(dr["PkgBasePrice"].ToString());
+
+                            packageObj.PkgAgencyCommission = dr["PkgAgencyCommission"] == DBNull.Value ? Convert.ToDouble(null) : double.Parse(dr["PkgAgencyCommission"].ToString());
+                            packageList.Add(packageObj);        //adding package items into the list 
+                        }
+                    }
+                    return packageList;                         //returns the list of package
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
 
-        //Display the related product in the product data grid on the Package form
+        /// <summary>
+        /// this method displays the related booking in the booking data grid on the Package form
+        /// </summary>
+        /// <param name="PackageId is passed as parameter to use it in SQL query to fetch correct records"></param>
+        /// <returns>list of related bookings for the selected package</returns>
+
+
         public static List<Bookings> DisplayBookingsInGrid(int pkgId)
         {
             List<Bookings> bookingList = new List<Bookings>();
@@ -96,6 +145,10 @@ namespace DBClasses
             }
         }
 
+        /// <summary>
+        /// this method contains the logic to add the package by the user form the package form 
+        /// </summary>
+        /// <param name="it passes the entire package object as parameter so that all information inside the object can be added"></param>
         public static void PackageAdd(Package pkgObj)
         {
             string insertStatement = "INSERT INTO Packages (PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
@@ -146,7 +199,13 @@ namespace DBClasses
             }
         }
 
-        
+        /// <summary>
+        /// this method contains the logic to save the updated record in the database.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="here 2 parameters are passed in, 1st one is old package object which is already ther in the database
+        /// and 2nd one is new package object which contains updated information from the package form"></param>
+        /// <returns>it returns the boolean(true/false), true if update is successful and false if not</returns>
 
         public static bool PackageUpdate(Package package,Package newPackage)
         {
@@ -242,7 +301,12 @@ namespace DBClasses
                 throw ex;
             }
         }
-        
+
+        /// <summary>
+        /// this below method has the logic of deleting the selected package information. it also takes care of database concurrancy
+        /// </summary>
+        /// <param name="the entire package object is passed as parameter as it contains all information to be deleted"></param>
+        /// <returns>it returns the boolean(true/false), true if delete is successful and false if not</returns>
 
         public static bool PackageDelete(Package pkgObj)
         { 
@@ -305,6 +369,11 @@ namespace DBClasses
             }
         }
 
+
+        /// <summary>
+        /// below method has the logic to check if the selected package information to be deleted has any child dependency to be checked
+        /// </summary>
+        /// <returns>it returns the list of name of the package which is used to compare and show appropriate message to the user on the package form</returns>
 
         public static List<string> CheckBeforeDelete()
         {

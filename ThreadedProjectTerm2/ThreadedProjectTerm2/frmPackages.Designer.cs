@@ -43,6 +43,7 @@
             System.Windows.Forms.Label pkgEndDateLabel1;
             System.Windows.Forms.Label pkgNameLabel1;
             System.Windows.Forms.Label pkgStartDateLabel1;
+            System.Windows.Forms.Label label3;
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,6 +90,7 @@
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             packageIdLabel = new System.Windows.Forms.Label();
             pkgAgencyCommissionLabel = new System.Windows.Forms.Label();
             pkgBasePriceLabel = new System.Windows.Forms.Label();
@@ -103,6 +105,7 @@
             pkgEndDateLabel1 = new System.Windows.Forms.Label();
             pkgNameLabel1 = new System.Windows.Forms.Label();
             pkgStartDateLabel1 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.packageBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packageDataGridView)).BeginInit();
@@ -179,7 +182,7 @@
             // packageIdLabel1
             // 
             packageIdLabel1.AutoSize = true;
-            packageIdLabel1.Location = new System.Drawing.Point(46, 58);
+            packageIdLabel1.Location = new System.Drawing.Point(46, 71);
             packageIdLabel1.Name = "packageIdLabel1";
             packageIdLabel1.Size = new System.Drawing.Size(82, 17);
             packageIdLabel1.TabIndex = 1;
@@ -188,7 +191,7 @@
             // pkgAgencyCommissionLabel1
             // 
             pkgAgencyCommissionLabel1.AutoSize = true;
-            pkgAgencyCommissionLabel1.Location = new System.Drawing.Point(458, 189);
+            pkgAgencyCommissionLabel1.Location = new System.Drawing.Point(458, 202);
             pkgAgencyCommissionLabel1.Name = "pkgAgencyCommissionLabel1";
             pkgAgencyCommissionLabel1.Size = new System.Drawing.Size(138, 17);
             pkgAgencyCommissionLabel1.TabIndex = 3;
@@ -197,7 +200,7 @@
             // pkgBasePriceLabel1
             // 
             pkgBasePriceLabel1.AutoSize = true;
-            pkgBasePriceLabel1.Location = new System.Drawing.Point(458, 138);
+            pkgBasePriceLabel1.Location = new System.Drawing.Point(458, 151);
             pkgBasePriceLabel1.Name = "pkgBasePriceLabel1";
             pkgBasePriceLabel1.Size = new System.Drawing.Size(139, 17);
             pkgBasePriceLabel1.TabIndex = 7;
@@ -206,7 +209,7 @@
             // pkgDescLabel1
             // 
             pkgDescLabel1.AutoSize = true;
-            pkgDescLabel1.Location = new System.Drawing.Point(458, 50);
+            pkgDescLabel1.Location = new System.Drawing.Point(458, 63);
             pkgDescLabel1.Name = "pkgDescLabel1";
             pkgDescLabel1.Size = new System.Drawing.Size(103, 17);
             pkgDescLabel1.TabIndex = 0;
@@ -215,7 +218,7 @@
             // pkgEndDateLabel1
             // 
             pkgEndDateLabel1.AutoSize = true;
-            pkgEndDateLabel1.Location = new System.Drawing.Point(50, 191);
+            pkgEndDateLabel1.Location = new System.Drawing.Point(50, 204);
             pkgEndDateLabel1.Name = "pkgEndDateLabel1";
             pkgEndDateLabel1.Size = new System.Drawing.Size(130, 17);
             pkgEndDateLabel1.TabIndex = 9;
@@ -224,7 +227,7 @@
             // pkgNameLabel1
             // 
             pkgNameLabel1.AutoSize = true;
-            pkgNameLabel1.Location = new System.Drawing.Point(46, 99);
+            pkgNameLabel1.Location = new System.Drawing.Point(46, 112);
             pkgNameLabel1.Name = "pkgNameLabel1";
             pkgNameLabel1.Size = new System.Drawing.Size(108, 17);
             pkgNameLabel1.TabIndex = 11;
@@ -233,7 +236,7 @@
             // pkgStartDateLabel1
             // 
             pkgStartDateLabel1.AutoSize = true;
-            pkgStartDateLabel1.Location = new System.Drawing.Point(45, 142);
+            pkgStartDateLabel1.Location = new System.Drawing.Point(45, 155);
             pkgStartDateLabel1.Name = "pkgStartDateLabel1";
             pkgStartDateLabel1.Size = new System.Drawing.Size(135, 17);
             pkgStartDateLabel1.TabIndex = 13;
@@ -312,7 +315,7 @@
             // txtPackageId
             // 
             this.txtPackageId.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.packageBindingSource, "PackageId", true));
-            this.txtPackageId.Location = new System.Drawing.Point(218, 55);
+            this.txtPackageId.Location = new System.Drawing.Point(218, 68);
             this.txtPackageId.Name = "txtPackageId";
             this.txtPackageId.ReadOnly = true;
             this.txtPackageId.Size = new System.Drawing.Size(200, 22);
@@ -325,7 +328,7 @@
             // txtPkgAgencyCom
             // 
             this.txtPkgAgencyCom.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.packageBindingSource, "PkgAgencyCommission", true));
-            this.txtPkgAgencyCom.Location = new System.Drawing.Point(630, 186);
+            this.txtPkgAgencyCom.Location = new System.Drawing.Point(630, 199);
             this.txtPkgAgencyCom.Name = "txtPkgAgencyCom";
             this.txtPkgAgencyCom.Size = new System.Drawing.Size(200, 22);
             this.txtPkgAgencyCom.TabIndex = 8;
@@ -333,7 +336,7 @@
             // txtPkgBasePrice
             // 
             this.txtPkgBasePrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.packageBindingSource, "PkgBasePrice", true));
-            this.txtPkgBasePrice.Location = new System.Drawing.Point(630, 135);
+            this.txtPkgBasePrice.Location = new System.Drawing.Point(630, 148);
             this.txtPkgBasePrice.Name = "txtPkgBasePrice";
             this.txtPkgBasePrice.Size = new System.Drawing.Size(200, 22);
             this.txtPkgBasePrice.TabIndex = 7;
@@ -341,7 +344,7 @@
             // txtPkgDesc
             // 
             this.txtPkgDesc.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.packageBindingSource, "PkgDesc", true));
-            this.txtPkgDesc.Location = new System.Drawing.Point(630, 47);
+            this.txtPkgDesc.Location = new System.Drawing.Point(630, 60);
             this.txtPkgDesc.Multiline = true;
             this.txtPkgDesc.Name = "txtPkgDesc";
             this.txtPkgDesc.Size = new System.Drawing.Size(200, 64);
@@ -350,7 +353,7 @@
             // pkrPkgEndDate
             // 
             this.pkrPkgEndDate.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.packageBindingSource, "PkgEndDate", true));
-            this.pkrPkgEndDate.Location = new System.Drawing.Point(218, 187);
+            this.pkrPkgEndDate.Location = new System.Drawing.Point(218, 200);
             this.pkrPkgEndDate.Name = "pkrPkgEndDate";
             this.pkrPkgEndDate.ShowCheckBox = true;
             this.pkrPkgEndDate.Size = new System.Drawing.Size(204, 22);
@@ -359,7 +362,7 @@
             // txtPkgName
             // 
             this.txtPkgName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.packageBindingSource, "PkgName", true));
-            this.txtPkgName.Location = new System.Drawing.Point(218, 96);
+            this.txtPkgName.Location = new System.Drawing.Point(218, 109);
             this.txtPkgName.Name = "txtPkgName";
             this.txtPkgName.Size = new System.Drawing.Size(200, 22);
             this.txtPkgName.TabIndex = 3;
@@ -367,7 +370,7 @@
             // pkrPkgStartDate
             // 
             this.pkrPkgStartDate.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.packageBindingSource, "PkgStartDate", true));
-            this.pkrPkgStartDate.Location = new System.Drawing.Point(218, 138);
+            this.pkrPkgStartDate.Location = new System.Drawing.Point(218, 151);
             this.pkrPkgStartDate.Name = "pkrPkgStartDate";
             this.pkrPkgStartDate.ShowCheckBox = true;
             this.pkrPkgStartDate.Size = new System.Drawing.Size(200, 22);
@@ -458,7 +461,7 @@
             // 
             // btnClearPkgFields
             // 
-            this.btnClearPkgFields.Location = new System.Drawing.Point(703, 273);
+            this.btnClearPkgFields.Location = new System.Drawing.Point(703, 286);
             this.btnClearPkgFields.Name = "btnClearPkgFields";
             this.btnClearPkgFields.Size = new System.Drawing.Size(116, 29);
             this.btnClearPkgFields.TabIndex = 11;
@@ -490,7 +493,7 @@
             this.groupBox2.Controls.Add(this.btnAddPkg);
             this.groupBox2.Controls.Add(this.btnUpdatePkg);
             this.groupBox2.Controls.Add(this.btnDeletePkg);
-            this.groupBox2.Location = new System.Drawing.Point(53, 241);
+            this.groupBox2.Location = new System.Drawing.Point(53, 254);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(576, 61);
             this.groupBox2.TabIndex = 10;
@@ -563,11 +566,32 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "All Packages";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label3.ForeColor = System.Drawing.Color.ForestGreen;
+            label3.Location = new System.Drawing.Point(277, 9);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(232, 19);
+            label3.TabIndex = 23;
+            label3.Text = "Search By Package Name:";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(515, 9);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(248, 22);
+            this.txtSearch.TabIndex = 24;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
             // frmPackages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1313, 681);
+            this.Controls.Add(this.txtSearch);
+            this.Controls.Add(label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bookingsDataGridView);
@@ -659,5 +683,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSearch;
     }
 }

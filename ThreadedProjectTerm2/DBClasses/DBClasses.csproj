@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TravelExpertsClasses\TravelExpertsClasses.csproj">
-      <Project>{0DCDD615-1735-41A5-B967-3A1AF1A32E84}</Project>
+      <Project>{0dcdd615-1735-41a5-b967-3a1af1a32e84}</Project>
       <Name>TravelExpertsClasses</Name>
     </ProjectReference>
   </ItemGroup>
