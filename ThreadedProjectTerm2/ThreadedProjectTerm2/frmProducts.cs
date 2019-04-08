@@ -373,6 +373,25 @@ namespace ThreadedProjectTerm2
             }
         }
 
+        private void grpProductButtons_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grpProdSupplierAdd_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grpProdSupplier_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grpProductAddEdit_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
