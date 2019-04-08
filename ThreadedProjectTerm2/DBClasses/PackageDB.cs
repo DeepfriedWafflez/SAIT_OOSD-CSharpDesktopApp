@@ -102,50 +102,6 @@ namespace DBClasses
 
 
         /// <summary>
-        /// this method displays the related booking in the booking data grid on the Package form
-        /// </summary>
-        /// <param name="PackageId is passed as parameter to use it in SQL query to fetch correct records"></param>
-        /// <returns>list of related bookings for the selected package</returns>
-
-
-        public static List<Bookings> DisplayBookingsInGrid(int pkgId)
-        {
-            List<Bookings> bookingList = new List<Bookings>();
-            
-           string selectQuery = "select BookingNo,CustomerId,TripTypeId from bookings where PackageId IN (Select PackageId from packages WHERE PackageId=@pkgId) ";   //SQL query to get all fields from table
-
-            try
-            {
-
-                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
-                    {
-                        con.Open();//databse connection opens
-                        cmd.Parameters.AddWithValue("@pkgId", pkgId); //binding it with PkgId parameter which is passed on in an arguement
-                      
-                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
-                        while (dr.Read())                       //below block of code executes till there is data in the table
-                        {
-                            Bookings bkngObj = new Bookings();         //instantiating the object of the class Package      
-                            
-                            bkngObj.BookingNo = (string)dr["BookingNo"];
-                            bkngObj.CustomerId = (int)dr["CustomerId"];
-                            bkngObj.TripTypeId = (string)dr["TripTypeId"];
-                           
-                            bookingList.Add(bkngObj);        //adding package items into the list 
-                        }
-                    }
-                    return bookingList;                         //returns the list of product
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        /// <summary>
         /// this method contains the logic to add the package by the user form the package form 
         /// </summary>
         /// <param name="it passes the entire package object as parameter so that all information inside the object can be added"></param>
@@ -404,6 +360,84 @@ namespace DBClasses
         }
 
 
+
+        /// <summary>
+        /// this method displays the related booking in the booking data grid on the Package form
+        /// </summary>
+        /// <param name="PackageId is passed as parameter to use it in SQL query to fetch correct records"></param>
+        /// <returns>list of related bookings for the selected package</returns>
+
+
+        public static List<Bookings> DisplayBookingsInGrid(int pkgId)
+        {
+            List<Bookings> bookingList = new List<Bookings>();
+
+            string selectQuery = "select BookingNo,CustomerId,TripTypeId from bookings where PackageId IN (Select PackageId from packages WHERE PackageId=@pkgId) ";   //SQL query to get all fields from table
+
+            try
+            {
+
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                    {
+                        con.Open();//databse connection opens
+                        cmd.Parameters.AddWithValue("@pkgId", pkgId); //binding it with PkgId parameter which is passed on in an arguement
+
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            Bookings bkngObj = new Bookings();         //instantiating the object of the class Package      
+
+                            bkngObj.BookingNo = (string)dr["BookingNo"];
+                            bkngObj.CustomerId = (int)dr["CustomerId"];
+                            bkngObj.TripTypeId = (string)dr["TripTypeId"];
+
+                            bookingList.Add(bkngObj);        //adding package items into the list 
+                        }
+                    }
+                    return bookingList;                         //returns the list of product
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static List<Product> DisplayProductsInGrid()
+        {
+            List<Product> productList = new List<Product>(); //crating empty list
+            Product productObj = null;                       //referencing package object
+
+            string selectQuery = "SELECT * FROM Products ORDER BY ProdName ASC";   //SQL query to get all fields from table
+
+            try
+            {
+
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                    {
+                        con.Open();                             //databse connection opens
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            productObj = new Product();         //instantiating the object of the class Package      
+                            productObj.ProductId = (int)dr["ProductName"];
+                           
+                            productList.Add(productObj);        //adding package items into the list 
+                        }
+                    }
+                    return productList;                         //returns the list of package
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 

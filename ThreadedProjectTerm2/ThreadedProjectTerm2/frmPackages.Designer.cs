@@ -91,6 +91,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lstProducts = new System.Windows.Forms.ListBox();
             packageIdLabel = new System.Windows.Forms.Label();
             pkgAgencyCommissionLabel = new System.Windows.Forms.Label();
             pkgBasePriceLabel = new System.Windows.Forms.Label();
@@ -241,6 +242,17 @@
             pkgStartDateLabel1.Size = new System.Drawing.Size(135, 17);
             pkgStartDateLabel1.TabIndex = 13;
             pkgStartDateLabel1.Text = "Package Start Date:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label3.ForeColor = System.Drawing.Color.ForestGreen;
+            label3.Location = new System.Drawing.Point(256, 12);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(232, 19);
+            label3.TabIndex = 23;
+            label3.Text = "Search By Package Name:";
             // 
             // panel1
             // 
@@ -566,17 +578,6 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "All Packages";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label3.ForeColor = System.Drawing.Color.ForestGreen;
-            label3.Location = new System.Drawing.Point(277, 9);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(232, 19);
-            label3.TabIndex = 23;
-            label3.Text = "Search By Package Name:";
-            // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(515, 9);
@@ -585,11 +586,24 @@
             this.txtSearch.TabIndex = 24;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
+            // lstProducts
+            // 
+            this.lstProducts.DisplayMember = "ProdName";
+            this.lstProducts.FormattingEnabled = true;
+            this.lstProducts.ItemHeight = 16;
+            this.lstProducts.Location = new System.Drawing.Point(904, 39);
+            this.lstProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lstProducts.Name = "lstProducts";
+            this.lstProducts.Size = new System.Drawing.Size(272, 276);
+            this.lstProducts.TabIndex = 25;
+            this.lstProducts.ValueMember = "ProductId";
+            // 
             // frmPackages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 681);
+            this.ClientSize = new System.Drawing.Size(1346, 681);
+            this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(label3);
             this.Controls.Add(this.label2);
@@ -684,5 +698,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.ListBox lstProducts;
     }
 }

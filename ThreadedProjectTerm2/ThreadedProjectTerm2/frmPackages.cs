@@ -150,14 +150,17 @@ namespace ThreadedProjectTerm2
 
                         if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
                         {
-                           
+
                             if (pkrPkgEndDate.Value.Date.CompareTo(pkrPkgStartDate.Value.Date) <= 0)
                             {
                                 MessageBox.Show("Start Date should be less than End Date", "Date Selection Error", MessageBoxButtons.OK);
                             }
-                        
+
                         }
-                      
+                        else if (pkrPkgStartDate.Checked == false && pkrPkgEndDate.Checked == true)
+                        {
+                            MessageBox.Show("Can't have End Date without Start Date");
+                        }
                         else
                         {
                             this.PutPackageData(pkgObj);
@@ -202,6 +205,7 @@ namespace ThreadedProjectTerm2
                 {
                     if (Validator.IsPresent(txtPkgName) && (Validator.IsPresent(txtPkgBasePrice)) && (Validator.isNonNegative(txtPkgBasePrice, "Base Price")))
                     {
+
                         if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
                         {
 
@@ -209,23 +213,30 @@ namespace ThreadedProjectTerm2
                             {
                                 MessageBox.Show("Start Date should be less than End Date", "Date Selection Error", MessageBoxButtons.OK);
                             }
-                            else
-                            {
-                                newPackage.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
-                                PutPackageData(newPackage);  //  calls the putpackagedata() method to populate rest of the properties
-
-                                bool success = PackageDB.PackageUpdate(package, newPackage);
-                                if (success)
-                                {
-                                    MessageBox.Show("Package Updated Successfully");
-                                    Refresh();
-
-                                    packages = PackageDB.DisplayPackagesInGrid();
-                                    packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages
-
-                                }
-                            }
                         }
+                       
+                        else
+                        {
+
+                            PutPackageData(newPackage);  //  calls the putpackagedata() method to populate rest of the properties
+                            newPackage.PackageId = int.Parse(txtPackageId.Text); //populates the PackageID property of the object
+
+                            bool success = PackageDB.PackageUpdate(package, newPackage);
+                            if (success)
+                            {
+                                MessageBox.Show("Package Updated Successfully");
+                                Refresh();
+
+                                packages = PackageDB.DisplayPackagesInGrid();
+                                packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages
+
+                            }
+
+                        }
+                 
+                    }else
+                    {
+                        MessageBox.Show("Package Name & Base Price have to entered");
                     }
                 }
                 else MessageBox.Show("please select a record from the grid to update", "selection error");
@@ -327,25 +338,29 @@ namespace ThreadedProjectTerm2
             package.PkgBasePrice = double.Parse(txtPkgBasePrice.Text);
 
 
-            if (pkrPkgStartDate.Checked == false && pkrPkgEndDate.Checked == true)
-            {
-                MessageBox.Show("Can't have End Date without Start Date");
-            }
-            else if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == false)
+            if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == false)
             {
                 package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
-                package.PkgEndDate = Convert.ToDateTime(null);
+                package.PkgEndDate = null;
             }
             else if (pkrPkgStartDate.Checked == true && pkrPkgEndDate.Checked == true)
             {
                 package.PkgStartDate = DateTime.Parse(pkrPkgStartDate.Text);
                 package.PkgEndDate = DateTime.Parse(pkrPkgEndDate.Text);
             }
-            else
+            else if (pkrPkgStartDate.Checked == false && pkrPkgEndDate.Checked == true)
+            {
+                package.PkgStartDate = null;
+                package.PkgEndDate = DateTime.Parse(pkrPkgEndDate.Text);
+            }
+             else 
             {
                 package.PkgStartDate = null;
                 package.PkgEndDate = null;
             }
+
+
+
 
             if (txtPkgDesc.Text == "")
             {
