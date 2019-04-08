@@ -280,7 +280,7 @@
             // 
             // supplierBindingSource
             // 
-            this.supplierBindingSource.DataSource = typeof(TravelExpertsClasses.Supplier);
+           // this.supplierBindingSource.DataSource = typeof(TravelExpertsClasses.Supplier);
             // 
             // frmProducts
             // 
