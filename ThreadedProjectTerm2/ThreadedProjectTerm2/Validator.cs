@@ -52,5 +52,37 @@ namespace ThreadedProjectTerm2
                 return false;
             }
         }
+
+        public static bool IsCompare(TextBox tb1,TextBox tb2)
+        {
+            decimal basePrice = Convert.ToDecimal(tb1.Text);
+            decimal agencyCommission = Convert.ToDecimal(tb2.Text);
+           
+            try
+            {
+                if (tb2.Text != null)
+                {
+                    if (basePrice > agencyCommission)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Agency Commission has to be less than Package Price");
+                        return false;
+                    }
+                }
+                return true;
+                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+          
+        }
+
+
     }
 }

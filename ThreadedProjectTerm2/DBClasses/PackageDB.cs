@@ -292,7 +292,7 @@ namespace DBClasses
                         }
                         else cmd.Parameters.AddWithValue("@PkgStartDate", DBNull.Value);
 
-                        if (pkgObj.PkgStartDate.HasValue)
+                        if (pkgObj.PkgEndDate.HasValue)
                         {
                             cmd.Parameters.AddWithValue("@PkgEndDate", pkgObj.PkgEndDate);
                         }
@@ -387,16 +387,16 @@ namespace DBClasses
                         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
                         while (dr.Read())                       //below block of code executes till there is data in the table
                         {
-                            Bookings bkngObj = new Bookings();         //instantiating the object of the class Package      
+                            Bookings bkngObj = new Bookings();         //instantiating the object of the class booking      
 
                             bkngObj.BookingNo = (string)dr["BookingNo"];
                             bkngObj.CustomerId = (int)dr["CustomerId"];
                             bkngObj.TripTypeId = (string)dr["TripTypeId"];
 
-                            bookingList.Add(bkngObj);        //adding package items into the list 
+                            bookingList.Add(bkngObj);        //adding booking items into the list 
                         }
                     }
-                    return bookingList;                         //returns the list of product
+                    return bookingList;                         //returns the list of booking
                 }
             }
             catch (Exception ex)
@@ -406,12 +406,19 @@ namespace DBClasses
         }
 
 
-        public static List<Product> DisplayProductsInGrid()
+        public static List<Product> DisplayProductsInList(int pkgId)
         {
             List<Product> productList = new List<Product>(); //crating empty list
-            Product productObj = null;                       //referencing package object
+            Product productObj = null;                       //referencing product object
 
-            string selectQuery = "SELECT * FROM Products ORDER BY ProdName ASC";   //SQL query to get all fields from table
+            string selectQuery = "SELECT p.ProductId as 'product',p.ProdName,ps.ProductSupplierId " +   //SQL query to get all fields from table
+                                "FROM Products p " +
+                                "INNER JOIN Products_Suppliers ps " +
+                                "ON  p.ProductId = ps.ProductId " +
+                                "INNER JOIN Packages_Products_Suppliers pps " +
+                                "ON ps.ProductSupplierId = pps.ProductSupplierId " +
+                                "INNER JOIN Packages pk " +
+                                "ON pps.PackageId = pk.PackageId  WHERE pk.PackageId = @pkgId";
 
             try
             {
@@ -421,16 +428,59 @@ namespace DBClasses
                     using (SqlCommand cmd = new SqlCommand(selectQuery, con))
                     {
                         con.Open();                             //databse connection opens
+                        cmd.Parameters.AddWithValue("@pkgId", pkgId); //binding it with PkgId parameter which is passed on in an arguement
                         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
                         while (dr.Read())                       //below block of code executes till there is data in the table
                         {
-                            productObj = new Product();         //instantiating the object of the class Package      
-                            productObj.ProductId = (int)dr["ProductName"];
+                            productObj = new Product();         //instantiating the object of the class Product      
+                            productObj.ProdName = (string)dr["ProdName"];
                            
-                            productList.Add(productObj);        //adding package items into the list 
+                            productList.Add(productObj);        //adding product items into the list 
                         }
                     }
-                    return productList;                         //returns the list of package
+                    return productList;                         //returns the list of product
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static List<Supplier> DisplaySuppliersInList(int pkgId)
+        {
+            List<Supplier> supplierList = new List<Supplier>(); //crating empty list
+            Supplier supplierObj = null;                       //referencing supplier object
+
+            string selectQuery = "SELECT s.SupplierId as 'supplier',s.SupName,ps.ProductSupplierId " +
+                                "FROM Suppliers s " +
+                                "INNER JOIN Products_Suppliers ps " +
+                                "ON s.SupplierId = ps.SupplierId " +
+                                "INNER JOIN Packages_Products_Suppliers pps " +
+                                "ON ps.ProductSupplierId = pps.ProductSupplierId " +
+                                "INNER JOIN Packages pk " +
+                                "ON pps.PackageId = pk.PackageId  WHERE pk.PackageId = @pkgId";
+
+            try
+            {
+
+                using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                    {
+                        con.Open();                             //databse connection opens
+                        cmd.Parameters.AddWithValue("@pkgId", pkgId); //binding it with PkgId parameter which is passed on in an arguement
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            supplierObj = new Supplier();         //instantiating the object of the class Supplier      
+                            supplierObj.SupName = (string)dr["SupName"];
+
+                            supplierList.Add(supplierObj);        //adding supplier items into the list 
+                        }
+                    }
+                    return supplierList;                         //returns the list of suppliers
                 }
             }
             catch (Exception ex)
