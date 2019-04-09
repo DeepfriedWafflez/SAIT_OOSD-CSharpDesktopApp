@@ -321,6 +321,7 @@ namespace ThreadedProjectTerm2
             }
         }
 
+
         //delete product supplier item from database
         private void btnProdSupplierDelete_Click(object sender, EventArgs e)
         {
@@ -331,7 +332,7 @@ namespace ThreadedProjectTerm2
             if (psSelectedItems.Count != 0)
             {
                 //get selected product-supplier id
-  
+
                 int selectedProductSupplier = Convert.ToInt32(psSelectedItems[0].SubItems[0].Text);
 
                 ProductSupplier ps = ProductSupplierDB.getProductSupplierById(selectedProductSupplier);
@@ -339,18 +340,23 @@ namespace ThreadedProjectTerm2
                 if (ps != null)  //Product-Supplier exists
                 {
 
-                    // !!!!!!!!! TO BE ADDED - CHECK FOR PACKAGES ASSOCIATED WITH Product-Supplier item
-                    // To be added once Birju has committed classes for Packages-Products-Suppliers
+                    try
+                    {
+                        if (ProductSupplierDB.DeleteProductSupplier(ps))
+                        {
+                            MessageBox.Show("Supplier removed from this product.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("A problem occurred with removing this supplier.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Supplier-product item is part of a Package-Product-Supplier item and cannot be deleted.");
+                    }
 
-                    if (ProductSupplierDB.DeleteProductSupplier(ps))
-                    {
-                        MessageBox.Show("Supplier removed from this product.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("A problem occurred with removing this supplier.");
-                    }
-                } 
+                }
                 else
                 {
                     //ProductSupplier item does not exist in database - concurrency issue
@@ -366,6 +372,7 @@ namespace ThreadedProjectTerm2
                 MessageBox.Show("Please select a supplier to delete.");
             }
         }
+
     }
 
 
