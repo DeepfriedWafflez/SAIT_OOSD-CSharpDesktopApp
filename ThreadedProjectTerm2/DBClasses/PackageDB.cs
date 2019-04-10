@@ -7,6 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelExpertsClasses;
 
+/// <summary>
+///         Purpose: To perform CRUD operation on packages offered by company and reflect that in the database
+///        Author: Birju Nakrani - 773649
+///        Date: March 25, 2019
+
+/// </summary>
+
+
+
 namespace DBClasses
 {
     public static class PackageDB

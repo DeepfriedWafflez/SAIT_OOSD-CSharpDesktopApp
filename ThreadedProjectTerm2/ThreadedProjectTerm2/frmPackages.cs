@@ -11,6 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TravelExpertsClasses;
 
+
+/// <summary>
+///         Purpose: To perform CRUD operation on packages offered by company and reflect that in the database
+///        Author: Birju Nakrani - 773649
+///        Date: March 25, 2019
+
+/// </summary>
+
+
 namespace ThreadedProjectTerm2
 {
     public partial class frmPackages : Form
@@ -310,8 +319,8 @@ namespace ThreadedProjectTerm2
                 {
                     pkgObj.PackageId = Convert.ToInt32(txtPackageId.Text);
                     PutPackageData(pkgObj);
-                    var packageNames = PackageDB.CheckBeforeDelete();
-                    if (packageNames.Count != 0)
+                    var packageCount = PackageDB.CheckBeforeDelete(pkgObj.PackageId);
+                    if (packageCount > 0)
                     {
                         MessageBox.Show("Can't Delete Package. Please delete dependent tables first");
                     }
@@ -329,12 +338,12 @@ namespace ThreadedProjectTerm2
                                 MessageBox.Show("Package has been Deleted");
                             }
                         }
-                            
+                    }       
                         
-                    }
+                   
                   
                     Refresh();
-                 //   packageDataGridView.DataSource = PackageDB.DisplayPackagesInGrid();
+               
                     packages = PackageDB.DisplayPackagesInGrid();
                     packageDataGridView.DataSource = packages; //packages is the list to hold the list of packages                   
                 }
@@ -439,26 +448,3 @@ namespace ThreadedProjectTerm2
 
 
 
-
-
-
-
-//Event handler to make sure price fields can take only numbers from keyboard but can backspac
-//private void txtPkgBasePrice_KeyPress(object sender, KeyPressEventArgs e)
-//{
-//    e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)8;
-//    if (e.KeyChar == (char)13)
-//    {
-//        txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
-//    }
-//}
-
-//private void txtPkgAgencyCom_KeyPress(object sender, KeyPressEventArgs e)
-//{
-//    if ((!char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)8 && e.KeyChar != (char)46))
-//        e.Handled = true;
-//    if (e.KeyChar == (char)13)
-//    {
-//        txtPkgBasePrice.Text = string.Format("{0:n0}", double.Parse(txtPkgBasePrice.Text));
-//    }
-//}
