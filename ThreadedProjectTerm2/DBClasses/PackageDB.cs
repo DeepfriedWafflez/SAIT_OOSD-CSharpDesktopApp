@@ -335,7 +335,7 @@ namespace DBClasses
         {
             List<string> packageNames = new List<string>();
 
-            string query = "SELECT PackageId,PkgName from packages Where Not EXISTS " +
+            string query = "SELECT PackageId,PkgName from packages Where EXISTS " +
                             "(SELECT b.packageid, p.packageid from bookings b,Packages_Products_Suppliers p where b.packageid=p.packageid)";
             try
             {
