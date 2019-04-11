@@ -7,12 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelExpertsClasses;
 
-
-/// <summary>
-/// Package section is done by Birju Nakrani - student id#773649. Built Package form, package form behind code class, packageDB class
-/// </summary>
-
-
 namespace DBClasses
 {
     public static class PackageDB
@@ -124,7 +118,7 @@ namespace DBClasses
                     using (SqlCommand cmd = new SqlCommand(insertStatement, con))
                     {
                         con.Open();                             //databse connection opens
-                  //    cmd.Parameters.AddWithValue("@PackageId", pkgObj.PackageId);  //id is auto-generated in the database as its primary key                                   
+                  //    cmd.Parameters.AddWithValue("@PackageId", pkgObj.PackageId);  //auto-generated                                      
                         cmd.Parameters.AddWithValue("@PkgName", pkgObj.PkgName);  
                         cmd.Parameters.AddWithValue("@PkgBasePrice", pkgObj.PkgBasePrice);
                         if (pkgObj.PkgStartDate.HasValue)
@@ -335,17 +329,14 @@ namespace DBClasses
         /// <summary>
         /// below method has the logic to check if the selected package information to be deleted has any child dependency to be checked
         /// </summary>
-        /// <returns>it returns the count of the 0 or 1  which is used to compare and show appropriate message to the user on the package form</returns>
+        /// <returns>it returns the list of name of the package which is used to compare and show appropriate message to the user on the package form</returns>
 
-        public static int CheckBeforeDelete(int pkgId)
+        public static List<string> CheckBeforeDelete()
         {
-            List<Package> packageList = new List<Package>();
-            Package pkgObj = null;
+            List<string> packageNames = new List<string>();
 
-            string query = "select count(*) from packages where packageid in " +
-                             "((select count(*) from packages_products_suppliers where packageid=@pkgId) " +
-                             "UNION " +
-                             "(select count(*) from bookings where packageid=@pkgId))";
+            string query = "SELECT PackageId,PkgName from packages Where EXISTS " +
+                            "(SELECT b.packageid, p.packageid from bookings b,Packages_Products_Suppliers p where b.packageid=p.packageid)";
             try
             {
                 using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
@@ -353,11 +344,13 @@ namespace DBClasses
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         con.Open();                             //databse connection opens
-                        cmd.Parameters.AddWithValue("@pkgId", pkgId);
-                         int packageCount = Convert.ToInt32(cmd.ExecuteScalar());
-                        return packageCount;                         //returns the number 0 if there is no dependency of packageId on any other table else returns 1
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+                        while (dr.Read())                       //below block of code executes till there is data in the table
+                        {
+                            packageNames.Add(Convert.ToString(dr["PkgName"]));
+                        }
                     }
-                  
+                    return packageNames;                         //returns the list of package
                 }
             }
             catch (Exception ex)
@@ -369,7 +362,7 @@ namespace DBClasses
 
 
         /// <summary>
-        /// this method displays the related booking in the booking data list on the Package form
+        /// this method displays the related booking in the booking data grid on the Package form
         /// </summary>
         /// <param name="PackageId is passed as parameter to use it in SQL query to fetch correct records"></param>
         /// <returns>list of related bookings for the selected package</returns>
@@ -412,12 +405,6 @@ namespace DBClasses
             }
         }
 
-
-        /// <summary>
-        /// this method displays the related products in the product data list on the Package form
-        /// </summary>
-        /// <param name="PackageId is passed as parameter to use it in SQL query to fetch correct records"></param>
-        /// <returns></returns>
 
         public static List<Product> DisplayProductsInList(int pkgId)
         {
@@ -513,3 +500,37 @@ namespace DBClasses
     }//class
 } //namespace
 
+/// <summary>
+/// GetPackageById() is the method which brings the relevant package information to show in the form based on gridrow selected by user
+/// </summary>
+/// <param name="packageId"></param>
+/// <returns>list of package</returns>
+//public static List<Package> GetPackageById(int packageId)
+//{
+//    List<Package> packageList = new List<Package>(); //creating empty list
+//    Package packageObj = null;
+
+//    string selectStatement = "SELECT * FROM Packages WHERE PackageId = @packageId";
+
+//    using (SqlConnection con = TravelExpertsDBConn.getDbConnection())
+//    {
+//        using (SqlCommand cmd = new SqlCommand(selectStatement, con))
+//        {
+//            con.Open();                             //databse connection opens
+//            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); //Data reader executes the query and bring all data before closing connection to the table
+//            while (dr.Read())                       //below block of code executes till there is data in the table
+//            {
+//                packageObj = new Package();         //instantiating the object of the class Package because  
+//                packageObj.PackageId = (int)dr["PackageId"];
+//                packageObj.PkgName = (string)dr["PkgName"];
+//                packageObj.PkgStartDate = dr["PkgStartDate"] == DBNull.Value ? null : (DateTime?)dr["PkgStartDate"];
+//                packageObj.PkgEndDate = dr["PkgEndDate"] == DBNull.Value ? null : (DateTime?)dr["PkgEndDate"];
+//                packageObj.PkgDesc = dr["PkgDesc"] == DBNull.Value ? null : (string)dr["PkgDesc"];
+//                packageObj.PkgBasePrice = double.Parse(dr["PkgBasePrice"].ToString());
+//                packageObj.PkgAgencyCommission = dr["PkgAgencyCommission"] == DBNull.Value ? 0 : double.Parse(dr["PkgAgencyCommission"].ToString());
+//                packageList.Add(packageObj);        //adding package items into the list 
+//            }
+//        }
+//        return packageList;
+//    }
+//}
