@@ -13,8 +13,18 @@ using TravelExpertsClasses;
 namespace ThreadedProjectTerm2
 {
     public partial class frmProducts : Form
+
     {
-        public frmMain activeFrmMain;  
+        /// <summary>
+        /// Form to display and manage:
+        ///     - products for the products table (add/edit/delete)
+        ///     - suppliers related to proudcts in the Products_Suppliers table (add/delete)
+        ///     
+        /// Author: Stuart Peters
+        /// Date: April, 2019
+        /// </summary>
+
+        public frmMain activeFrmMain;  //current instance of the main form - used to support the navigation
         List<Product> productsList;    //list of all products
         List<Supplier> supplierList;  //list of all suppliers
         List<ProductSupplier> productSupplierList;  //list of productSupplier items for a given product
@@ -25,16 +35,21 @@ namespace ThreadedProjectTerm2
             InitializeComponent();
         }
 
+        //sets the 
         private void frmProducts_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (this == activeFrmMain.activeFrmProducts)
-                activeFrmMain.activeFrmPackages = null;
+                activeFrmMain.activeFrmProducts = null;
         }
 
+        //load the form and get data from the database
         private void frmProducts_Load(object sender, EventArgs e)
         {
+            // populate products list box
             LoadProducts();
+            //populate product suppliers list box
             LoadProductSuppliers(currentProduct.ProductId);
+            //set up controls to initial start for the form
             SetUpFrmControls();
         }
 
@@ -45,7 +60,7 @@ namespace ThreadedProjectTerm2
          * 
          * ********************************************************/
 
-
+        //get products from database and load the products in the list box
         private void LoadProducts(int selectedProductId = -1)
         {
 
@@ -64,20 +79,27 @@ namespace ThreadedProjectTerm2
             }
         }
 
+        //get suppliers for the selected product from the databse and display in list box
         private void LoadProductSuppliers (int prodId)
         {
+            //clear suppliers list
             lvProdSuppliers.Items.Clear();
 
+            //get suppliers from database
             productSupplierList = ProductSupplierDB.GetProductSuppliersByProductID(prodId);
+
+            //populate the controls
             grpProdSupplier.Text = "Suppliers providing product: " + currentProduct.ProdName;
             
+
+            //filter suppliers list to only Product_Suppliers for the selected product
             var prodSuppliersNames = from productSupplierItem in productSupplierList
                                      join supplierItem in supplierList
                                      on productSupplierItem.SupplierId equals supplierItem.SupID
                                      orderby supplierItem.SupName
                                      select new { productSupplierItem.ProductSupplierId, supplierItem.SupName };
 
-
+            //populate the list box
             if (prodSuppliersNames != null)
             { 
                 int i = 0;
@@ -91,6 +113,8 @@ namespace ThreadedProjectTerm2
             }
         }
 
+
+        //set the initial state of the form controls 
         private void SetUpFrmControls()
         {
 
@@ -109,7 +133,7 @@ namespace ThreadedProjectTerm2
          * 
          * *************************************************************/
 
-
+        //display the add/edit product group box in add mode
         private void btnProductAdd_Click(object sender, EventArgs e)
         {
             grpProductAddEdit.Visible = true;
@@ -122,6 +146,7 @@ namespace ThreadedProjectTerm2
 
         }
 
+        //clear and hide the add/edit product group box
         private void btnProductCancel_Click(object sender, EventArgs e)
         {
             grpProductAddEdit.Visible = false;
@@ -131,6 +156,7 @@ namespace ThreadedProjectTerm2
 
         }
 
+        //update the supplier list when new product selected
         private void lstProducts_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
@@ -141,6 +167,7 @@ namespace ThreadedProjectTerm2
 
         }
 
+        //display the add/edit product group box in edit mode
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
             grpProductAddEdit.Visible = true;
@@ -169,7 +196,7 @@ namespace ThreadedProjectTerm2
                     int tempId = currentProduct.ProductId;
                     LoadProducts();
                     SetUpFrmControls();
-                    MessageBox.Show(lstProducts.SelectedValue.ToString());
+                    //MessageBox.Show(lstProducts.SelectedValue.ToString());
                     lstProducts.SelectedValue = tempId;
                     currentProduct = ProductDB.getProductById(tempId);
                 }
@@ -190,7 +217,7 @@ namespace ThreadedProjectTerm2
                 newProduct.ProdName = txtProdAddEdit.Text;
                 int newId = -1;
                 newId = ProductDB.AddProduct(newProduct);
-                MessageBox.Show(newId.ToString());
+                //MessageBox.Show(newId.ToString());
                 if (newId != -1)
                 {
                     //refresh form
@@ -247,6 +274,7 @@ namespace ThreadedProjectTerm2
          * 
          * 
          **************************************************************/
+
 
         private void lvProdSuppliers_Click(object sender, EventArgs e)
         {

@@ -17,10 +17,7 @@ namespace DBClasses
     public static class ProductSupplierDB
     {
 
-        //SortedList<string, Customer> customers = new SortedList<string, Customer>();// empty
-        //Customer cust;
-        //cust = new Customer(1, "Tom", "123 Main", "Calgary", "AB", "T2A 1Z4");
-        //customers.Add(cust.Name, cust); // you add key value pairs
+        //get list of ProductSuppliers from database
         public static List<ProductSupplier> GetProductSuppliers()
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
@@ -66,7 +63,7 @@ namespace DBClasses
             return ps;
         }
 
-
+        //get list of ProductSuppliers from database for a given product id
         public static List<ProductSupplier> GetProductSuppliersByProductID(int pId)
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
@@ -113,6 +110,8 @@ namespace DBClasses
             return ps;
         }
 
+
+        //get list of ProductSuppliers from database for a given supplier id
         public static List<ProductSupplier> GetProductSuppliersBySupplierID(int sId)
         {
             List<ProductSupplier> ps = new List<ProductSupplier>();  //empty list
