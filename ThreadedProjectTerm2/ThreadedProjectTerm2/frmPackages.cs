@@ -13,8 +13,11 @@ using TravelExpertsClasses;
 
 
 /// <summary>
-/// Package section is done by Birju Nakrani - student id#773649. Built Package form, package form behind code class, packageDB class
-/// </summar
+///         Purpose: To perform CRUD operation on packages offered by company and reflect that in the database
+///        Author: Birju Nakrani - 773649
+///        Date: March 25, 2019
+
+/// </summary>
 
 
 namespace ThreadedProjectTerm2
